@@ -1,0 +1,23 @@
+# dot-workspace.yml
+name: 'dot-workspace'
+description: 'creates an empty workspace if needed'
+inputs:
+  path:
+    description: ' workspace'
+    required: true
+    default: 'true'
+  create-workspace:
+    description: 'create empty workspace'
+    required: true
+    default: 'true'
+
+outputs:
+  workspace-updated:
+    description: 'The Workspace was created/updated and needs to be persisted'
+
+runs:
+  using: 'script'
+  command: 'workspace.sh'
+  args:
+    - ${{ inputs.path }}
+    - ${{ inputs.create-workspace }}

@@ -102,7 +102,9 @@ _sites_path(){
 }
 
 create_workspace(){
+   echo " base path param: $1"
     BASE_PATH=$(_base_path "$1")
+    echo " base path: $BASE_PATH"
     workspace=$(_workspace_file "$BASE_PATH")
     files=$(_files_path "$BASE_PATH")
     contentTypes=$(_content_types_path "$BASE_PATH")

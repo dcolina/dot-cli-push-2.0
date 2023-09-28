@@ -49,10 +49,10 @@ jobs:
         id: dot-workspace
         run: |
           if [ ${{ env.DOT_CREATE_WORKSPACE }} = true ]; then
-            chmod +x ./.github/workflows/scripts/workspace.sh
+            chmod 777 ./.github/workflows/scripts/workspace.sh
             source ./.github/workflows/scripts/workspace.sh
             workspace_updated=$(create_workspace)
-            echo "Workspace has been setup."
+            echo "Workspace has been setup: ${workspace_updated}."
           fi
         shell: bash
 

@@ -102,7 +102,7 @@ _sites_path(){
 }
 
 create_workspace(){
-    BASE_PATH=$1
+    BASE_PATH=$(_base_path "$1")
     workspace=$(_workspace_file "$BASE_PATH")
     files=$(_files_path "$BASE_PATH")
     contentTypes=$(_content_types_path "$BASE_PATH")

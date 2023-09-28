@@ -49,8 +49,8 @@ jobs:
         id: dot-workspace
         run: |
           if [ ${{ env.DOT_CREATE_WORKSPACE }} = true ]; then
-            chmod +x workspace.sh
-            source workspace.sh
+            chmod +x ./scripts/workspace.sh
+            source ./scripts/workspace.sh
             workspace_updated=$(create_workspace)
             echo "Workspace has been setup."
           fi

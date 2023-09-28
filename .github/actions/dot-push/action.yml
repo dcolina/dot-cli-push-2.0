@@ -36,7 +36,7 @@ outputs:
 
 runs:
   using: 'script'
-  command: 'dot-push.sh'
+  main: 'dot-push.sh'
   args:  # ' push  /github/workspace/contents --removeAssets --removeFolders --token REQ$RTr23GR#$'
     - ${{ inputs.command }}
     - ${{ inputs.path }}

@@ -17,7 +17,7 @@ outputs:
 
 runs:
   using: 'script'
-  command: 'workspace.sh'
+  main: 'workspace.sh'
   args:
     - ${{ inputs.path }}
     - ${{ inputs.create-workspace }}

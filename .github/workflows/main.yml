@@ -49,7 +49,7 @@ jobs:
         id: dot-workspace
         run: |
           if [ ${{ env.DOT_CREATE_WORKSPACE }} = true ]; then
-            ls -l /github/workspace
+            ls -l ${{GITHUB_WORKSPACE}}
             chmod +x ./.github/workflows/scripts/workspace.sh
             source ./.github/workflows/scripts/workspace.sh
             workspace_updated=$(create_workspace ${{vars.DOT_REPO_BASE_PATH}} )

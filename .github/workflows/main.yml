@@ -54,6 +54,7 @@ jobs:
             source ./.github/workflows/scripts/workspace.sh
             workspace_updated=$(create_workspace "${{vars.DOT_REPO_BASE_PATH}}" )
             echo "Workspace has been setup: ${workspace_updated}."
+            echo "workspace-updated=$workspace_updated" >> "$GITHUB_OUTPUT"
           fi
         shell: bash
 
@@ -61,7 +62,7 @@ jobs:
       # you need to grant read/write permission for workflows in the repo settings
       - name: Persist updated workspace
         run: |
-          echo  updated :: "$workspace_updated"
+          echo  updated :: ${{ steps.dot-workspace.outputs.workspace-updated }}
           if [ -n "$workspace_updated" ]; then            
             git config user.name "GitHub Actions"
             git config user.email "actions@github.com"

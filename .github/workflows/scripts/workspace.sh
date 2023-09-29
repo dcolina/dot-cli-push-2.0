@@ -5,7 +5,7 @@ FILES_NAME_SPACE="/files/"
 CONTENT_TYPES_NAME_SPACE="/content-types/"
 LANGUAGES_NAME_SPACE="/languages/"
 SITES_NAME_SPACE="/sites/"
-DEFAULT_WORKSPACE_PATH="/github/workspace/"
+
 ## This file forces git to keep empty folders
 PLACEHOLDER_FILE=.dot-ignore
 ## We need an empty file to create the folders cause git does not track empty folders
@@ -19,13 +19,6 @@ _normalize() {
     in=$1
     normalized=$(echo "$in" | sed -E 's#/+#/#g')
     echo "$normalized"
-}
-
-_base_path(){
-    INPUT_PATH=$1
-    BASE_PATH=${INPUT_PATH:-$DEFAULT_WORKSPACE_PATH}
-    BASE_PATH=$(_normalize "$BASE_PATH")
-    echo "$BASE_PATH"
 }
 
 _workspace_file(){
@@ -107,9 +100,8 @@ _sites_path(){
 }
 
 create_workspace(){
-    echo ::: ws is ::: "$GITHUB_WORKSPACE"
-    basePath=$(_base_path "$1")
-    #echo basePath is :::  "$basePath"
+    basePath="$1"
+    basePath=$(_normalize "$basePath")
     workspace_file=$(_workspace_file "$basePath")
     echo "$workspace_file"
 

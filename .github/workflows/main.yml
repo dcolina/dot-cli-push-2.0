@@ -10,8 +10,8 @@ jobs:
       # This is how we instruct the cli the target server
       DOT_API_URL: ${{ vars.DOT_API_URL }}
       # This is how we instruct the cli the target folder in the repo
-      # By default it must be the root of the repo which is represented by /github/workspace
-      DOT_REPO_BASE_PATH: ${{ vars.DOT_REPO_BASE_PATH || '/github/workspace/' }}
+      # By default it must be the root of the repo this allows setting up a different folder on top of the root
+      DOT_REPO_BASE_PATH: ${{ vars.DOT_REPO_BASE_PATH }}
       # This is how we instruct the cli to create the workspace if it does not exist
       DOT_CREATE_WORKSPACE: ${{ vars.DOT_CREATE_WORKSPACE || 'true' }}
     steps:
@@ -48,14 +48,12 @@ jobs:
 
       - name: Create workspace if not exists
         id: dot-workspace
-        run: |
-          echo ${{ github.workspace }}
+        run: |          
           if [ ${{ env.DOT_CREATE_WORKSPACE }} = true ]; then
-            echo "Creating workspace ::: "
-            ls -l ${{ github.workspace }} 
+            echo "Creating workspace ::: "             
             chmod +x ./.github/workflows/scripts/workspace.sh
             source ./.github/workflows/scripts/workspace.sh
-            workspace_updated=$(create_workspace "${{vars.DOT_REPO_BASE_PATH}}" )          
+            workspace_updated=$(create_workspace ${{github.workspace}}${{vars.DOT_REPO_BASE_PATH}} )          
             echo "workspace-updated=$workspace_updated" >> "$GITHUB_OUTPUT"
           fi
         shell: bash

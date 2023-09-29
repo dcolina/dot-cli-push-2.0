@@ -100,7 +100,7 @@ run_cli_push(){
     workspace_path=$1
     dotApiURL=$2
     token=$3
-    _make_home "$workspace_path"
+#    _make_home "$workspace_path"
 
 #   _setup_apt
 #   _get_CLI

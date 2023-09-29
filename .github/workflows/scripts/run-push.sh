@@ -96,13 +96,13 @@ _run_cli_push(){
 
 
 run_cli_push(){
-   echo "running dotcms-cli push :::::::"
+      echo "running dotcms-cli push :::::::"
 
-    pwd && ls -la
-    workspace_path=$1
-    dotApiURL=$2
-    token=$3
-    _make_home "$workspace_path"
+#    pwd && ls -la
+#    workspace_path=$1
+#    dotApiURL=$2
+#    token=$3
+#    _make_home "$workspace_path"
 
 #   _setup_apt
 #   _get_CLI

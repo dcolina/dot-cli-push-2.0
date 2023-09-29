@@ -36,12 +36,10 @@ _get_CLI(){
   file="${DOT_CLI_HOME}${DOT_CLI_JAR}" && \
       actual_size=$(wc -c <"$file");
 
-    if (( "$actual_size" > 0 )); then \
-       echo "dotcms-cli file size is $actual_size "; \
-    else \
-       echo "dot-CLI size is 0 bytes - Terminating program"; \
-       exit 1; \
-    fi
+  if [ "$actual_size" -lt 1000000 ]; then
+    echo "The file is too small to be the CLI, please check the version and try again"
+    exit 1
+  fi
 }
 
 _get_run_java_script(){
@@ -98,10 +96,12 @@ _run_cli_push(){
 
 
 run_cli_push(){
+    echo "Running dotCMS CLI push"
+    pwd && ls -la
     workspace_path=$1
     dotApiURL=$2
     token=$3
-   _make_home
+   _make_home $workspace_path
    _setup_apt
    _get_CLI
    _get_run_java_script

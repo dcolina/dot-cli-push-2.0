@@ -34,7 +34,6 @@ _workspace_file(){
     #echo normalized  :: "$WORKSPACE_FILE"
     if [ ! -f "$WORKSPACE_FILE" ]; then
           #echo "writing to file ::"
-          touch "$WORKSPACE_FILE"
           echo "$WORKSPACE_FILE_CONTENT" >> "$WORKSPACE_FILE";
           #echo "writing to file done!"
           echo "$WORKSPACE_FILE";

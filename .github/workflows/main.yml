@@ -53,7 +53,7 @@ jobs:
             echo "Creating workspace ::: "             
             chmod +x ./.github/workflows/scripts/workspace.sh
             source ./.github/workflows/scripts/workspace.sh
-            workspace_updated=$(create_workspace ${{github.workspace}}${{vars.DOT_REPO_BASE_PATH}} )          
+            workspace_updated=$(create_workspace ${{github.workspace}}${{env.DOT_REPO_BASE_PATH}} )          
             echo "workspace-updated=$workspace_updated" >> "$GITHUB_OUTPUT"
           fi
         shell: bash
@@ -71,3 +71,13 @@ jobs:
             git push
             echo "Workspace has been updated."
           fi
+
+      - name: Run dotCMS CLI
+        id: dot-push
+        run: |          
+            echo "Running dotCMS CLI "             
+            chmod +x ./.github/workflows/scripts/run-push.sh
+            source ./.github/workflows/scripts/run-push.sh
+            echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"=$(run_cli_push ${{github.workspace}}${{env.DOT_REPO_BASE_PATH}} ${{env.DOT_API_URL}} ${{ secrets.DOT_TOKEN }} )            
+            #echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
+        shell: bash

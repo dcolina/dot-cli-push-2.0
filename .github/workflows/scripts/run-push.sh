@@ -94,6 +94,9 @@ _run_cli_push(){
       echo $exit_code
 }
 
+foo(){
+  echo "foo"
+}
 
 run_cli_push(){
       echo "running dotcms-cli push :::::::"

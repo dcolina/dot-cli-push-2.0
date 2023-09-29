@@ -120,7 +120,7 @@ create_workspace(){
     files=$(_files_path "$basePath")
     contentTypes=$(_content_types_path "$basePath")
     languages=$(_languages_path "$basePath")
-    sites=$(_sites_path "$$basePath")
+    sites=$(_sites_path "$basePath")
 
     if [ -n "$workspace_file" ] || [ -n "$files" ] || [ -n "$contentTypes" ] || [ -n "$languages" ] || [ -n "$sites" ]; then
        echo "Workspace updated"

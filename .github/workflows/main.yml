@@ -44,10 +44,12 @@ jobs:
           echo "Triggered by: ${{ github.actor }}"
           echo "Workflow: ${{ github.workflow }}"
           echo "PR: ${{ github.pull_request }}"
+          echo "Workspace: ${{ github.workspace }}"
 
       - name: Create workspace if not exists
         id: dot-workspace
         run: |
+          echo ${{ github.workspace }}
           if [ ${{ env.DOT_CREATE_WORKSPACE }} = true ]; then
             echo "Creating workspace ::: "
             ls -l ${{ github.workspace }} 

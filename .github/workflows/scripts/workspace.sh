@@ -107,6 +107,7 @@ _sites_path(){
 }
 
 create_workspace(){
+    echo ::: ws is ::: "$GITHUB_WORKSPACE"
     basePath=$(_base_path "$1")
     #echo basePath is :::  "$basePath"
     workspace_file=$(_workspace_file "$basePath")

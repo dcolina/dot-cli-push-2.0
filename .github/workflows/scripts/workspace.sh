@@ -103,16 +103,14 @@ create_workspace(){
     basePath="$1"
     basePath=$(_normalize "$basePath")
     workspace_file=$(_workspace_file "$basePath")
-    echo "$workspace_file"
+    files=$(_files_path "$basePath")
+    contentTypes=$(_content_types_path "$basePath")
+    languages=$(_languages_path "$basePath")
+    sites=$(_sites_path "$$basePath")
 
-#    files=$(_files_path "$BASE_PATH")
-#    contentTypes=$(_content_types_path "$BASE_PATH")
-#    languages=$(_languages_path "$BASE_PATH")
-#    sites=$(_sites_path "$BASE_PATH")
-#
-#    if [ -n "$workspace" ] && [ -n "$files" ] && [ -n "$contentTypes" ] && [ -n "$languages" ] && [ -n "$sites" ]; then
-#       echo "All functions had a return value."
-#    fi
+    if [ -n "$workspace" ] || [ -n "$files" ] || [ -n "$contentTypes" ] || [ -n "$languages" ] || [ -n "$sites" ] || [ -n "$workspace_file" ]; then
+       echo "Workspace updated"
+    fi
 }
 
 

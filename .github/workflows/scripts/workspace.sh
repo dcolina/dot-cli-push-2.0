@@ -102,18 +102,22 @@ _sites_path(){
 }
 
 create_workspace(){
-   echo " base path param: $1"
+    echo Param ::: "$1"
     BASE_PATH=$(_base_path "$1")
-    echo " base path: $BASE_PATH"
-    workspace=$(_workspace_file "$BASE_PATH")
-    files=$(_files_path "$BASE_PATH")
-    contentTypes=$(_content_types_path "$BASE_PATH")
-    languages=$(_languages_path "$BASE_PATH")
-    sites=$(_sites_path "$BASE_PATH")
+    echo basePath is :::  "$BASE_PATH"
+    echo :: "$USER"
 
-    if [ -n "$workspace" ] && [ -n "$files" ] && [ -n "$contentTypes" ] && [ -n "$languages" ] && [ -n "$sites" ]; then
-       echo "All functions had a return value."
-    fi
+    workspace=$(_workspace_file "$BASE_PATH")
+    echo "$workspace"
+
+#    files=$(_files_path "$BASE_PATH")
+#    contentTypes=$(_content_types_path "$BASE_PATH")
+#    languages=$(_languages_path "$BASE_PATH")
+#    sites=$(_sites_path "$BASE_PATH")
+#
+#    if [ -n "$workspace" ] && [ -n "$files" ] && [ -n "$contentTypes" ] && [ -n "$languages" ] && [ -n "$sites" ]; then
+#       echo "All functions had a return value."
+#    fi
 }
 
 

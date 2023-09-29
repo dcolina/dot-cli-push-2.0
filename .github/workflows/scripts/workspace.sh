@@ -31,8 +31,6 @@ _base_path(){
 _workspace_file(){
     BASE_PATH=$1
     #echo "$BASE_PATH"
-    ls -la "$BASE_PATH"
-    echo ":::::"
     WORKSPACE_FILE=$BASE_PATH/$DOT_WORKSPACE_YML
     #echo Workspace-file :: "$WORKSPACE_FILE"
     WORKSPACE_FILE=$(_normalize "$WORKSPACE_FILE")

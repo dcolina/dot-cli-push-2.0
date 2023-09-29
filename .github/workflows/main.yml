@@ -52,7 +52,7 @@ jobs:
             ## ls -l ${{ github.workspace }} 
             chmod +x ./.github/workflows/scripts/workspace.sh
             source ./.github/workflows/scripts/workspace.sh
-            workspace_updated=$(create_workspace ${{vars.DOT_REPO_BASE_PATH}} )
+            workspace_updated=$(create_workspace "${{vars.DOT_REPO_BASE_PATH}}" )
             echo "Workspace has been setup: ${workspace_updated}."
           fi
         shell: bash

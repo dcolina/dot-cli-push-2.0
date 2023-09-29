@@ -31,12 +31,15 @@ _base_path(){
 _workspace_file(){
     BASE_PATH=$1
     #echo "$BASE_PATH"
+    ls - "$BASE_PATH"
+    echo ":::::"
     WORKSPACE_FILE=$BASE_PATH/$DOT_WORKSPACE_YML
     #echo Workspace-file :: "$WORKSPACE_FILE"
     WORKSPACE_FILE=$(_normalize "$WORKSPACE_FILE")
     #echo normalized  :: "$WORKSPACE_FILE"
     if [ ! -f "$WORKSPACE_FILE" ]; then
           #echo "writing to file ::"
+          touch "$WORKSPACE_FILE"
           echo "$WORKSPACE_FILE_CONTENT" >> "$WORKSPACE_FILE";
           #echo "writing to file done!"
           echo "$WORKSPACE_FILE";

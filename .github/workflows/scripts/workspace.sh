@@ -15,12 +15,16 @@ WORKSPACE_FILE_CONTENT='name: default
 version: 1.0.0
 description: "DO NOT ERASE ME !!! I am a marker file required by dotCMS CLI."'
 
+##
+##
 _normalize() {
     in=$1
     normalized=$(echo "$in" | sed -E 's#/+#/#g')
     echo "$normalized"
 }
 
+## Creates the .dot_workspace yml file expected by the CLI to be able to work
+## expects a base path to work with
 _workspace_file(){
     BASE_PATH=$1
     #echo "$BASE_PATH"
@@ -37,6 +41,8 @@ _workspace_file(){
     fi
 }
 
+## Creates the files workspace path including live, working and language directories
+## expects a base path to work with
 _files_path(){
     BASE_PATH=$1
     FILES_PATH=$BASE_PATH/$FILES_NAME_SPACE
@@ -61,11 +67,12 @@ _files_path(){
     fi
 }
 
+## Creates the content_types workspace path
+## expects a base path to work with
 _content_types_path(){
     BASE_PATH=$1
     CONTENT_TYPES_PATH=$BASE_PATH/$CONTENT_TYPES_NAME_SPACE
     CONTENT_TYPES_PATH=$(_normalize "$CONTENT_TYPES_PATH")
-
     #echo "Content types path: $CONTENT_TYPES_PATH"
     if [ ! -d "$CONTENT_TYPES_PATH" ]; then
           #echo "Creating content types path: $CONTENT_TYPES_PATH";
@@ -75,6 +82,8 @@ _content_types_path(){
     fi
 }
 
+## Creates the languages workspace path
+## expects a base path to work with
 _languages_path(){
     BASE_PATH=$1
     LANGUAGE_PATH=$BASE_PATH/$LANGUAGES_NAME_SPACE
@@ -87,7 +96,10 @@ _languages_path(){
     fi
 }
 
+## Creates the sites workspace path
+## expects a base path to work with
 _sites_path(){
+    BASE_PATH=$1
     SITES_PATH=$BASE_PATH/$SITES_NAME_SPACE
     SITES_PATH=$(_normalize "$SITES_PATH")
     #echo "Sites path: $SITES_PATH"
@@ -99,6 +111,8 @@ _sites_path(){
     fi
 }
 
+## This function serves as the entry point the script
+## it expects a base path to work with
 create_workspace(){
     basePath="$1"
     basePath=$(_normalize "$basePath")
@@ -108,9 +122,10 @@ create_workspace(){
     languages=$(_languages_path "$basePath")
     sites=$(_sites_path "$$basePath")
 
-    if [ -n "$workspace" ] || [ -n "$files" ] || [ -n "$contentTypes" ] || [ -n "$languages" ] || [ -n "$sites" ] || [ -n "$workspace_file" ]; then
+    if [ -n "$workspace_file" ] || [ -n "$files" ] || [ -n "$contentTypes" ] || [ -n "$languages" ] || [ -n "$sites" ]; then
        echo "Workspace updated"
     fi
+
 }
 
 

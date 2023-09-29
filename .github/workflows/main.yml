@@ -52,8 +52,7 @@ jobs:
             ## ls -l ${{ github.workspace }} 
             chmod +x ./.github/workflows/scripts/workspace.sh
             source ./.github/workflows/scripts/workspace.sh
-            workspace_updated=$(create_workspace "${{vars.DOT_REPO_BASE_PATH}}" )
-            echo "Workspace has been setup: ${workspace_updated}."
+            workspace_updated=$(create_workspace "${{vars.DOT_REPO_BASE_PATH}}" )          
             echo "workspace-updated=$workspace_updated" >> "$GITHUB_OUTPUT"
           fi
         shell: bash
@@ -63,7 +62,7 @@ jobs:
       - name: Persist updated workspace
         run: |
           echo  updated :: ${{ steps.dot-workspace.outputs.workspace-updated }}
-          if [ -n "$workspace_updated" ]; then            
+          if [ -n ${{ steps.dot-workspace.outputs.workspace-updated }} ]; then            
             git config user.name "GitHub Actions"
             git config user.email "actions@github.com"
             git add .

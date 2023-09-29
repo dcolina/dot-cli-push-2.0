@@ -76,7 +76,6 @@ jobs:
         id: dot-push
         run: |                                   
             chmod +x ./.github/workflows/scripts/run-push.sh
-            source ./.github/workflows/scripts/run-push.sh
-            foo
-            exit_code=$(run_cli_push "${{github.workspace}}${{env.DOT_REPO_BASE_PATH}}" "${{env.DOT_API_URL}}" "${{ secrets.DOT_TOKEN }}" )
+            source ./.github/workflows/scripts/run-push.sh            
+            run_cli_push "${{github.workspace}}${{env.DOT_REPO_BASE_PATH}}" "${{env.DOT_API_URL}}" "${{ secrets.DOT_TOKEN }}"
         shell: bash

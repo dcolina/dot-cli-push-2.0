@@ -6,13 +6,14 @@
   RUN_DOT_CLI_VERSION='1.0.0-SNAPSHOT'
   CLI_RELEASE_DOWNLOAD_URL="${CLI_RELEASE_DOWNLOAD_BASE_URL}${RUN_DOT_CLI_VERSION}/dotcli-${RUN_DOT_CLI_VERSION}.jar"
   DOT_CLI_JAR="dot-cli.jar"
-  DOT_CLI_HOME="/dot-cli/"
+  DOT_CLI_HOME="/tmp/dot-cli/"
 
 SERVICES_FILE_CONTENT='name: "default"
   active: true'
 
 
 _make_home(){
+
   if [ ! -d "$DOT_CLI_HOME" ]; then
     mkdir $DOT_CLI_HOME
   fi
@@ -94,18 +95,14 @@ _run_cli_push(){
       echo $exit_code
 }
 
-foo(){
-  echo "foo"
-}
-
 run_cli_push(){
       echo "running dotcms-cli push :::::::"
 
 #    pwd && ls -la
-#    workspace_path=$1
-#    dotApiURL=$2
-#    token=$3
-#    _make_home "$workspace_path"
+    workspace_path=$1
+    dotApiURL=$2
+    token=$3
+    _make_home
 
 #   _setup_apt
 #   _get_CLI

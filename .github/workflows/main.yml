@@ -61,6 +61,7 @@ jobs:
       # you need to grant read/write permission for workflows in the repo settings
       - name: Persist updated workspace
         run: |
+          echo  updated :: "$workspace_updated"
           if [ -n "$workspace_updated" ]; then            
             git config user.name "GitHub Actions"
             git config user.email "actions@github.com"

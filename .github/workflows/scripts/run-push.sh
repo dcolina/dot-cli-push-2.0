@@ -21,7 +21,7 @@ _make_home(){
 }
 
 _setup_apt(){
-  apt-get update && \
+  sudo apt-get update && \
         apt-get install -y curl && \
         apt-get clean;
 }

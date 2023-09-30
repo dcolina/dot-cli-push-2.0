@@ -11,19 +11,12 @@
 SERVICES_FILE_CONTENT='name: "default"
   active: true'
 
-
 _make_home(){
 
   if [ ! -d "$DOT_CLI_HOME" ]; then
     mkdir $DOT_CLI_HOME
   fi
   echo $DOT_CLI_HOME
-}
-
-_setup_apt(){
-  sudo apt-get update && \
-        apt-get install -y curl && \
-        apt-get clean;
 }
 
 _get_CLI(){
@@ -103,9 +96,8 @@ run_cli_push(){
     dotApiURL=$2
     token=$3
     _make_home
-   #_setup_apt
-   _get_CLI
-#   _get_run_java_script
+    _get_CLI
+    _get_run_java_script
 #   _setup_CLI "$dotApiURL"
 #    return_code=$(_run_cli_push "$workspace_path" "$token")
 #    echo "$return_code"

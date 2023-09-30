@@ -8,8 +8,10 @@
   DOT_CLI_JAR="dot-cli.jar"
   DOT_CLI_HOME="/tmp/dot-cli/"
 
-SERVICES_FILE_CONTENT='name: "default"
-  active: true'
+SERVICES_FILE_CONTENT='
+name: "default"
+active: true
+'
 
 _make_home(){
 
@@ -51,9 +53,9 @@ _setup_CLI(){
     SERVICE_FILE=$DOT_SERVICES_HOME$DOT_SERVICE_YML
   # All we need is a file with an active profile that matches the server we want to connect to in this case we are using default
 
-    if [ ! -d $DOT_SERVICES_HOME ]; then
-      mkdir $DOT_SERVICES_HOME
-      echo creating ::  "$SERVICE_FILE";
+    if [ ! -d "$DOT_SERVICES_HOME" ]; then
+      mkdir "$DOT_SERVICES_HOME"
+      ## echo creating ::  "$SERVICE_FILE";
       echo "$SERVICES_FILE_CONTENT" >> "$SERVICE_FILE";
       cat "$SERVICE_FILE";
     fi
@@ -74,6 +76,9 @@ cat_log(){
 _run_cli_push(){
       workspace_path=$1
       token=$2
+
+      echo  DEFAULT :::  "$DOTCMS_CLIENT_SERVERS_DEFAULT"
+
       #These environment vars are expected by the start-up script
       export JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
       # This is a relative path to the run-java.sh file, both the jar and script are expected to live in the same folder

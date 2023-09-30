@@ -72,9 +72,9 @@ cat_log(){
 }
 
 _run_cli_push(){
-     workspace_path=$1
-     token=$2
-     #These environment vars are expected by the start-up script
+      workspace_path=$1
+      token=$2
+      #These environment vars are expected by the start-up script
       export JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
       # This is a relative path to the run-java.sh file, both the jar and script are expected to live in the same folder
       export JAVA_APP_JAR="$DOT_CLI_JAR"
@@ -82,7 +82,7 @@ _run_cli_push(){
       export JAVA_APP_NAME="dotcms-cli"
       # Log file
       export QUARKUS_LOG_FILE_PATH="$DOT_CLI_HOME"dotcms-cli.log
-      bash /dot-cli/run-java.sh "push" "$workspace_path" "--removeAssets" "--removeFolders" "--token" "$token" "--errors"
+      bash /tmp/dot-cli/run-java.sh "push" "$workspace_path" "--removeAssets" "--removeFolders" "--token" "$token" "--errors"
       exit_code=$?
       echo $exit_code
 }
@@ -95,6 +95,6 @@ run_cli_push(){
     _get_CLI
     _get_run_java_script
     _setup_CLI "$dotApiURL"
-#    return_code=$(_run_cli_push "$workspace_path" "$token")
-#    echo "$return_code"
+    return_code=$(_run_cli_push "$workspace_path" "$token")
+    echo "$return_code"
 }

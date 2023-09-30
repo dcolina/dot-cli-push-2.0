@@ -77,5 +77,11 @@ jobs:
         run: |                                   
             chmod +x ./.github/workflows/scripts/run-push.sh
             source ./.github/workflows/scripts/run-push.sh            
-            run_cli_push "${{github.workspace}}${{env.DOT_REPO_BASE_PATH}}" "${{env.DOT_API_URL}}" "${{ secrets.DOT_TOKEN }}"
+            return_code=$(run_cli_push "${{github.workspace}}${{env.DOT_REPO_BASE_PATH}}" "${{env.DOT_API_URL}}" "${{ secrets.DOT_TOKEN }}")
+            echo "return-code=$return_code" >> "$GITHUB_OUTPUT"
+            print_log
+            if [ "$return_code" -ne 0 ]; then
+                 echo "dot CLI tool has failed with exit code: $return_code "
+                 exit 1
+            fi
         shell: bash

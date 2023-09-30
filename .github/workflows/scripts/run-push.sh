@@ -69,7 +69,7 @@ _setup_CLI(){
 
 }
 
-cat_log(){
+print_log(){
   echo "Quarkus log file contents:"
   cat "$QUARKUS_LOG_FILE_PATH"
 }

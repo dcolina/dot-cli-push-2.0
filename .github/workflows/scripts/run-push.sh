@@ -7,6 +7,7 @@
   CLI_RELEASE_DOWNLOAD_URL="${CLI_RELEASE_DOWNLOAD_BASE_URL}${RUN_DOT_CLI_VERSION}/dotcli-${RUN_DOT_CLI_VERSION}.jar"
   DOT_CLI_JAR="dot-cli.jar"
   DOT_CLI_HOME="/tmp/dot-cli/"
+  DOT_SERVICE_YML="dot-service.yml"
 
 SERVICES_FILE_CONTENT='
 name: "default"
@@ -49,19 +50,14 @@ _setup_CLI(){
     #Lets create the services file dot-service.yml
     #the services yml is used to store the server configurations or profiles if you Will
     DOT_SERVICES_HOME=$HOME/.dotcms/
-    echo "Creating dotCMS CLI home: $DOT_SERVICES_HOME"
-
-    echo " user home "  ~
-    echo whoami
-
-    DOT_SERVICE_YML=".dot-service.yml"
     SERVICE_FILE=$DOT_SERVICES_HOME$DOT_SERVICE_YML
-  # All we need is a file with an active profile that matches the server we want to connect to in this case we are using default
+   # All we need is a file with an active profile that matches the server we want to connect to in this case we are using default
 
     if [ ! -d "$DOT_SERVICES_HOME" ]; then
       mkdir "$DOT_SERVICES_HOME"
       ## echo creating ::  "$SERVICE_FILE";
       echo "$SERVICES_FILE_CONTENT" >> "$SERVICE_FILE";
+      echo created file :: "$SERVICE_FILE"
       cat "$SERVICE_FILE";
     fi
 

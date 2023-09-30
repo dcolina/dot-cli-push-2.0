@@ -46,7 +46,7 @@ _setup_CLI(){
     API_URL=$1
     #Lets create the services file dot-service.yml
     #the services yml is used to store the server configurations or profiles if you Will
-    DOT_SERVICES_HOME=$HOME.dotcms/
+    DOT_SERVICES_HOME=$HOME/.dotcms/
     DOT_SERVICE_YML=".dot-service.yml"
     SERVICE_FILE=$DOT_SERVICES_HOME$DOT_SERVICE_YML
   # All we need is a file with an active profile that matches the server we want to connect to in this case we are using default

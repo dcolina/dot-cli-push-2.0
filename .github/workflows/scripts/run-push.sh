@@ -103,9 +103,8 @@ run_cli_push(){
     dotApiURL=$2
     token=$3
     _make_home
-
-#   _setup_apt
-#   _get_CLI
+   _setup_apt
+   _get_CLI
 #   _get_run_java_script
 #   _setup_CLI "$dotApiURL"
 #    return_code=$(_run_cli_push "$workspace_path" "$token")

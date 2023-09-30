@@ -10,8 +10,8 @@
   DOT_SERVICE_YML="dot-service.yml"
 
 SERVICES_FILE_CONTENT='
-name: "default"
-active: true
+- name: "default"
+  active: true
 '
 
 _make_home(){

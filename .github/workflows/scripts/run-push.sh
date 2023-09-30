@@ -43,11 +43,10 @@ _get_run_java_script(){
 }
 
 _setup_CLI(){
-    DEMO_API_URL=$1
+    API_URL=$1
     #Lets create the services file dot-service.yml
     #the services yml is used to store the server configurations or profiles if you Will
-    USER_HOME="/root/"
-    DOT_SERVICES_HOME=$USER_HOME.dotcms/
+    DOT_SERVICES_HOME=$HOME.dotcms/
     DOT_SERVICE_YML=".dot-service.yml"
     SERVICE_FILE=$DOT_SERVICES_HOME$DOT_SERVICE_YML
   # All we need is a file with an active profile that matches the server we want to connect to in this case we are using default
@@ -63,7 +62,7 @@ _setup_CLI(){
     #The suffix value used to create the environment value must match the name on dot-service.yml file in this case we are using default
     #dotcms.client.servers.default=https://demo.dotcms.com/api
 
-    export DOTCMS_CLIENT_SERVERS_DEFAULT=$DEMO_API_URL
+    export DOTCMS_CLIENT_SERVERS_DEFAULT=$API_URL
 
 }
 
@@ -89,16 +88,13 @@ _run_cli_push(){
 }
 
 run_cli_push(){
-      echo "running dotcms-cli push :::::::"
-
-#    pwd && ls -la
     workspace_path=$1
     dotApiURL=$2
     token=$3
     _make_home
     _get_CLI
     _get_run_java_script
-#   _setup_CLI "$dotApiURL"
+    _setup_CLI "$dotApiURL"
 #    return_code=$(_run_cli_push "$workspace_path" "$token")
 #    echo "$return_code"
 }

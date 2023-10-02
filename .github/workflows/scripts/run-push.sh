@@ -19,13 +19,13 @@ _make_home(){
   if [ ! -d "$DOT_CLI_HOME" ]; then
     mkdir $DOT_CLI_HOME
   fi
-  echo $DOT_CLI_HOME
+  #echo $DOT_CLI_HOME
 }
 
 _get_CLI(){
   # now lets get curl so we can download the CLI and the run-java.sh script
 
-  echo "downloading dot CLI from ${CLI_RELEASE_DOWNLOAD_URL}"
+  #echo "downloading dot CLI from ${CLI_RELEASE_DOWNLOAD_URL}"
   curl ${CLI_RELEASE_DOWNLOAD_URL} -L -o ${DOT_CLI_HOME}${DOT_CLI_JAR}
   chmod 777 "${DOT_CLI_HOME}${DOT_CLI_JAR}"
 
@@ -40,7 +40,7 @@ _get_CLI(){
 }
 
 _get_run_java_script(){
-    echo "downloading run-java.sh"
+    #echo "downloading run-java.sh"
     curl https://repo1.maven.org/maven2/io/fabric8/run-java-sh/${RUN_JAVA_VERSION}/run-java-sh-${RUN_JAVA_VERSION}-sh.sh -o "${DOT_CLI_HOME}"run-java.sh
     chmod 777 ${DOT_CLI_HOME}run-java.sh
 }
@@ -57,8 +57,8 @@ _setup_CLI(){
       mkdir "$DOT_SERVICES_HOME"
       ## echo creating ::  "$SERVICE_FILE";
       echo "$SERVICES_FILE_CONTENT" >> "$SERVICE_FILE";
-      echo created file :: "$SERVICE_FILE"
-      cat "$SERVICE_FILE";
+      #echo created file :: "$SERVICE_FILE"
+      #cat "$SERVICE_FILE";
     fi
 
     #Tell the CLI to use the demo server through the profile "default"

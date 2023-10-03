@@ -41,7 +41,7 @@ _get_CLI(){
 
 _install_CLI(){
   workspace_path=$1
-  copy  "$workspace_path"/dotcms-cli-1.0.0-SNAPSHOT-runner.jar ${DOT_CLI_HOME}${DOT_CLI_JAR}
+  cp "$workspace_path"/dotcms-cli-1.0.0-SNAPSHOT-runner.jar ${DOT_CLI_HOME}${DOT_CLI_JAR}
 }
 
 _get_run_java_script(){

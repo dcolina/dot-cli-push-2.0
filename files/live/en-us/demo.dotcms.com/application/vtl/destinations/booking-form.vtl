@@ -1,0 +1,31 @@
+<!-- Booking Form: /application/vtl/destinations/booking-form.vtl -->
+
+<div class="form-booking">
+    <h2>Book your holiday</h2>
+    <form class="rd-form rd-mailform rd-form-outside" novalidate="novalidate">
+
+      <!-- DESTINATION SELECT -->
+      <div class="form-wrap form-wrap-select">
+        <label class="form-label-outside" for="destination">Destination</label>
+        <select class="form-input select-filter form-control-has-validation form-control-last-child" id="destination" tabindex="-1" title="destination">
+          #foreach($con in $dotcontent.pull("-contentType:forms +contentType:Destination +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST)",10,"Destination.title"))
+            <option value="$con.url">$con.title</option>
+          #end
+        </select>
+      </div>
+
+      <!-- START DATE -->
+      <div class="form-wrap form-wrap-time-picker">
+        <label class="form-label-outside" for="start-date">Start date</label>
+        <input class="form-input form-control-has-validation form-control-last-child" type="date" id="start-date" name="start-date">
+      </div>
+
+      <!-- END DATE -->
+      <div class="form-wrap form-wrap-time-picker">
+        <label class="form-label-outside" for="end-date">End date</label>
+        <input class="form-input form-control-has-validation form-control-last-child" type="date" id="end-date" name="end-date">
+      </div>
+
+      <div class="form-wrap"><a class="button button-primary" id="book" href="#" aria-label="Book Now">Book now</a></div>
+    </form>
+  </div>

@@ -1,0 +1,29 @@
+#set($_qk = "+contentType:Image +confolder:$!{folder1}*")
+#set($cons = $dotcontent.pull(${_qk},$!{numberOfResults},"modDate desc"))
+
+#if ($UtilMethods.isSet($widgetTitle))
+  <h2 class="text-center mb-3">$!{widgetTitle}</h2>
+#end
+
+#if($cons.size() > 0)
+  <div class="row no-gutters" data-lightgallery="group">
+      #foreach($con in $cons)
+        <div class="col-sm-6 col-lg-4 col-xl-3">
+          <article class="thumbnail-classic thumbnail-classic-fullwidth">
+            <a class="thumbnail-classic-figure" href="/dA/$con.identifier/50q/1200w/$con.fileName" data-lightgallery="item">
+                <img src="/dA/$con.identifier/480w/50q/$con.fileName" alt="$!{con.title}" class="img-fluid">
+            </a>
+            <div class="thumbnail-classic-caption">
+                <h4 class="thumbnail-classic-title">$con.title</h4>
+                <p class="thumbnail-classic-text">$con.description</p>
+                <span class="thumbnail-classic-link mdi mdi-plus-circle-outline"></span>
+            </div>
+          </article>
+        </div>
+      #end
+  </div>
+#else
+<div class="alert alert-info">
+    There currently no images in the folder.
+</div>
+#end

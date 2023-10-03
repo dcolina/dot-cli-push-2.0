@@ -1,0 +1,6 @@
+#if($user)
+  #dotParse("/application/vtl/login/user-info.vtl")
+#else
+  #dotParse("/application/vtl/login/login-api.vtl")
+#end
+

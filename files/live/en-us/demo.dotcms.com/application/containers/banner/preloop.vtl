@@ -1,0 +1,10 @@
+#if($EDIT_MODE && $CONTAINER_NOTES)
+    <div class="container-notes">$CONTAINER_NOTES</div>
+#end
+
+#if($dotTheme)
+    #set($dotThemeContainers = ${dotTheme.path})
+#else
+    ##Set to your defualt theme so if template has no theme you get the containers.
+    #set($dotThemeContainers = "/application/themes/travel/")
+#end

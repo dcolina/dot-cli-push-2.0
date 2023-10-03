@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col"><h2>Comments</h2></div>
+    <div class="col text-right"><a href="#webup" class="button button-md button-primary button-leaf" id="addComment"><span class="mdi mdi-plus"></span> Comment</a></div>
+</div>
+
+#foreach($blogComment in $dotcontent.pullRelated("Blog.blogComment","$!{blogId}",false,0,"modDate desc"))
+    <div class="box-comment">
+
+        #foreach($blogCommentor in $dotcontent.pull("+contentType:BlogCommentor +BlogCommentor.blogComment:$!{blogComment.identifier}",1,"modDate desc"))
+        #set($commentAuthor = "$!{blogCommentor.firstName} $!{blogCommentor.lastName}")
+        <div class="unit flex-column flex-md-row">
+            <div class="unit-left"><img class="img-circles" src="$!{blogCommentor.profilePhoto.shortyUrl}/80w80h" alt="" width="80" height="80"></div>
+            <div class="unit-body">
+                <div class="group-xl">
+                    <h4 class="box-comment-author"><a href="#">$!{commentAuthor}</a></h4>
+                    <span class="box-comment-time">$date.format("MMMM dd, yyyy 'at' hh:mm aa", $!{blogComment.postDate})</span>
+                </div>
+                <div class="box-comment-text">$!{blogComment.body}</div>
+                <div class="box-comment-reply"><span class="icon mdi mdi-reply"></span><a href="#">Reply</a></div>
+            </div>
+        </div>
+        #end
+
+        <!-- Reply -->
+        <!--
+        ##foreach($reply in $dotcontent.pullRelated("BlogComment.reply","$!{blogComment.identifier}",false,5,"modDate desc"))
+            <div class="box-comment">
+                <div class="unit flex-column flex-md-row">
+                    ##foreach($replyAuthor  in $dotcontent.pull("+contentType:BlogCommentor +BlogCommentor.blogComment:$!{reply.identifier}",1,"modDate desc"))
+                        <div class="unit-left"><img class="img-circles" src="$!{replyAuthor.profilePhoto.shortyUrl}/80w80h" alt="" width="80" height="80"></div>
+                        <div class="unit-body">
+                            <div class="group-xl">
+                                <h4 class="box-comment-author"><a href="#">$!{replyAuthor.firstName} $!{replyAuthor.lastName}</a></h4>
+                                <span class="box-comment-time">2 days ago</span>
+                                <div class="box-comment-user-message"><span class="icon mdi mdi-reply"></span><span>$commentAuthor</span></div>
+                            </div>
+                            <p class="box-comment-text">$!{reply.body}</p>
+                        </div>
+                    ##end
+                </div>
+            </div>
+       ##end
+       -->
+
+    </div>
+#end

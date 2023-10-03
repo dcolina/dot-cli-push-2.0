@@ -1,0 +1,35 @@
+<!-- VTL File: /application/vtl/blogs/recommended-blogs.vtl -->
+
+<h1 class="text-center">$widgetTitle</h1>
+<div class="row row-40 justify-content-center justify-content-md-start">
+    #foreach($con in $dotcontent.pullPersonalized("-contentType:forms +contentType:Blog +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST)",3,"Blog.postingDate desc"))
+    <div class="col-sm-8 col-md-6 col-lg-4">
+        <div class="post post-modern post-height">
+            <a class="post-img-wrap" href="/blog/post/$con.urlTitle">
+                <img class="post-img" src="/dA/${con.identifier}/image/w/370/50q/$!{con.image.name}" alt="$con.title">
+            </a>
+            <div class="post-body">
+                <div class="post-content">
+                    #editContentlet($con.inode)
+                    <h3 class="post-title"><a href="/blog/post/$urlTitle">$con.title</a></h3>
+                    <p class="post-text">$UtilMethods.prettyShortenString("$con.teaser", 120)</p>
+                </div>
+                <div class="post-bottom-panel">
+                    <div>
+                        <div class="group-xl">
+                            <div class="post-modern-time">
+                                <span class="post-icon icon mdi mdi-calendar-clock"></span>
+                                <time datetime="$date.format('yyyy-MM-dd h:mm a', ${con.postingDate})">$date.format('MMMM dd, yyyy', ${con.postingDate})</time>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="badge badge-primary">$!{con.tags.get(0)}</span>
+            </div>
+        </div>
+    </div>
+    #end
+</div>
+
+<a class="button button-primary button-leaf" href="/blogs/">View all blog posts</a>

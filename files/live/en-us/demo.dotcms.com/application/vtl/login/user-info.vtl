@@ -1,0 +1,43 @@
+<script>
+  function logoutDotCMS(){
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+
+    if(this.readyState != XMLHttpRequest.DONE){
+      return;
+    }
+
+    if(this.status === 200) {
+      console.log("logout completed");
+      window.location.href="/?r=" + Math.random();
+
+    }else{
+      console.log("logout failed ")
+      console.error("Error", this.responseText);
+    }
+    }
+
+    xhr.open("GET", "/api/v1/logout", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send();
+
+
+
+
+
+}  
+
+
+</script>
+
+<img src="https://www.gravatar.com/avatar/${user.gravitar}">
+<br><small>gravitar</small>
+<h3>$user.firstName $user.lastName</h3>
+<div class="p-2">
+<b>Email :</b> ${user.emailAddress} <br>
+<b>frontendUser :</b>  $!{user.frontendUser}<br>
+<b>hasConsoleAccess :</b> $!{user.hasConsoleAccess}
+</div>
+
+<button id="logout" name="singlebutton" onclick="logoutDotCMS()" class="btn btn-primary btn-sm">Logout</button>

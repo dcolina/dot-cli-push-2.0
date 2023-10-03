@@ -1,0 +1,45 @@
+h1 {
+    font-size: $h1-size;
+    line-height: 1.167em;
+    font-family: 'Open Sans',Helvetica,sans-serif;
+    font-weight: 500;
+    margin: 0 auto 17px;
+}
+h2 {
+    font-size: $h2-size;
+    font-weight: 500;
+}
+
+h3 {
+    font-size: $h3-size;
+    font-family: 'Open Sans',Helvetica,sans-serif;
+    line-height: 1.25em;
+    font-weight: 700;
+    font-style: normal;
+    color: $blue;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h4 {
+    font-family: 'Open Sans',Helvetica,sans-serif;
+    font-size: $h4-size;
+    font-weight: 300;
+    color: #56595c;
+}
+p {
+    font-family: 'Open Sans',Helvetica,sans-serif;
+    font-size: $p-size;
+    margin: 0 0 1.8em 0;
+    line-height: 1.6em;
+    font-weight: 300;
+}
+
+.text-white {
+    b, strong {
+        color: $blue;
+        font-weight: 700;
+    }
+}
+

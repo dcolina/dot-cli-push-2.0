@@ -1,0 +1,40 @@
+#set($blogId = $!{URLMapContent.identifier})
+#foreach($blogComment in $dotcontent.pull("+contentType:BlogComment  +BlogComment.blog:$!{blogId}",20,"modDate desc"))
+    <div class="comment-wrapper">
+        #foreach($blogCommentor in $dotcontent.pull("+contentType:BlogCommentor +BlogCommentor.blogComment:$!{blogComment.identifier}",1,"modDate desc"))
+            #set($commentAuthor = "$!{blogCommentor.firstName} $!{blogCommentor.lastName}")
+            #if($!{blogCommentor.profilePhoto.shortyUrl})
+                <div class="avatar" style="background-image: url('$!{blogCommentor.profilePhoto.shortyUrl}/75w');"></div>
+            #else
+                <div class="avatar" style="background-image: url('/dA/07bc6ba206/profilePhoto/anonymous.jpeg/75w');"></div>
+            #end
+            <div class="author">$!{commentAuthor}</div>
+        #end
+		##<div class="re-title">$UtilMethods.truncatify($!{blogComment.title},50)</div>
+		<div class="date">$date.format('medium', $!{blogComment.postDate})</div>
+        <div class="comment">$!{blogComment.body}</div>
+        
+        ##comment on the comment
+        
+        <div class="replies">
+            <div class="new-reply">#dotParse("/application/vtl/forms/commentOnComment.vtl")</div>
+            #foreach($reply in $dotcontent.pull("+contentType:BlogComment +BlogComment.reply:$!{blogComment.identifier}",5,"modDate desc"))
+                <div class="comment-wrapper">
+                	#editContentlet($reply.inode)
+                    #foreach($replyAuthor  in $dotcontent.pull("+contentType:BlogCommentor +BlogCommentor.blogComment:$!{reply.identifier}",1,"modDate desc"))
+                        #if($!{replyAuthor.profilePhoto.shortyUrl})
+                            <div class="avatar" style="background-image: url('$!{replyAuthor.profilePhoto.shortyUrl}/75w');"></div>
+                        #else
+                            <div class="avatar" style="background-image: url('/dA/07bc6ba206/profilePhoto/anonymous.jpeg/75w');"></div>
+                        #end
+                        <div class="author">$!{replyAuthor.firstName} $!{replyAuthor.lastName}</div>
+                    #end
+                    <div class="comment">$reply.body</div>
+                </div>
+            #end
+	        
+        </div>
+        
+    </div>
+#end
+

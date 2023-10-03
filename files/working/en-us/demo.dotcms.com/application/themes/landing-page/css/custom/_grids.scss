@@ -1,0 +1,42 @@
+// GRIDS //
+.fluid .container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+@media (min-width: $screen-lg){
+  .fluid .container {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+.justify-content-between .row{
+  -ms-flex-pack: justify !important;
+  justify-content: space-between !important;
+}
+.justify-content-center .row{
+  -ms-flex-pack: center !important;
+  justify-content: center !important;
+}
+.justify-content-around .row{
+  -ms-flex-pack: distribute !important;
+  justify-content: space-around !important;
+}
+.justify-content-end .row{
+  -ms-flex-pack: end !important;
+  justify-content: flex-end !important;
+}
+.justify-content-between div[class*="offset"], 
+.justify-content-center div[class*="offset"], 
+.justify-content-around div[class*="offset"],
+.justify-content-end div[class*="offset"] {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.no-gutter div[class^="col"]{
+  padding-right: 0;
+  padding-left: 0;
+}

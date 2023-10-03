@@ -1,0 +1,95 @@
+/*
+*
+* Footers
+*/
+
+//
+// Footer Classic
+//
+
+.footer-classic {
+	color: #fff;
+	h2 + p {
+		margin-top: 30px;
+	}
+	h2 + * {
+		margin-top: 35px;
+	}
+	.form-wrap + .form-wrap {
+		margin-top: 10px;
+	}
+	
+	.rights {
+		color: $gray-600;
+		padding-bottom: 30px;
+		
+		a {
+			@include link(inherit, $white)
+		}
+	}
+}
+
+.bg-footer {
+	background-size: cover;
+	background-position: 50%;
+	background-repeat: no-repeat;
+}
+
+.footer-brand {
+	display: inline-block;
+}
+
+* + .footer-brand {
+	margin-top: 45px;
+}
+
+// Medium ≥768px
+@include media-breakpoint-up(md) {
+	.footer-classic {
+		text-align: left;
+	}
+}
+
+.footer-minimal {
+	
+	a {
+		&:hover {
+			color: $primary;
+		}
+	}
+	
+	.footer-brand {
+		margin-top: 0;
+	}
+	
+	.rights {
+		padding-bottom: 0;
+		a {
+			&:hover {
+				color: $primary;
+			}
+		}
+	}
+	
+}
+
+.footer-corporate {
+	a {
+		&:hover {
+			color: $gray-800;
+		}
+	}
+	.link-address,
+	.link-tel {
+		&:hover {
+			color: $primary;
+		}
+	}
+	.rights {
+		a {
+			&:hover {
+				color: $primary;
+			}
+		}
+	}
+}

@@ -1,0 +1,46 @@
+<style>
+    #${fieldId}Count_tag{
+        display: none;
+    }
+    .countWrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        color: #6c7389;
+        font-size: 0.875rem;
+        line-height: 0.875rem;
+        margin: -10px 10px 20px 10px;
+    }
+    .maxChar {
+        padding: 0 5px;
+    }
+</style>
+
+
+
+<div class="countWrapper">
+    <div id="${fieldId}-counter-text"><span id="charactersRemaining-${fieldId}">$maxChar</span> characters</span></div>
+    <div>Recommended Max $maxChar characters</div>
+</div>
+
+
+<script>
+    var el;                                                    
+    function countCharacters${fieldId}(e) {                                    
+        var textEntered, countRemaining, counter;          
+        textEntered = document.getElementById('$fieldId').value;  
+        counter = (textEntered.length);
+        countRemaining = document.getElementById('charactersRemaining-${fieldId}'); 
+        countRemaining.textContent = counter;
+        if(counter <= $maxChar) {
+            document.getElementById('${fieldId}-counter-text').style.color = "#6c7389";
+        }else{
+            document.getElementById('${fieldId}-counter-text').style.color = "red";
+        }
+    }
+
+    dojo.addOnLoad(function(){
+        countCharacters${fieldId}();
+        dojo.connect(dojo.byId("$fieldId"), "keyup", null, "countCharacters${fieldId}");
+    });
+</script>

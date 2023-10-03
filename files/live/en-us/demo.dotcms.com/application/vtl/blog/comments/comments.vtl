@@ -1,0 +1,13 @@
+##set Blog ID with blog identifier
+#set($blogId = $!{URLMapContent.identifier})
+
+##set todays date
+#set($today = $date.format('MM/dd/yy H:m:s',$date))
+
+
+## Pull of comments Related to this blog
+#dotParse("/application/vtl/blog/comments/relatedblogcomments.vtl")
+
+
+##Post a new comment
+#dotParse("/application/vtl/blog/comments/newblogcomment.vtl")

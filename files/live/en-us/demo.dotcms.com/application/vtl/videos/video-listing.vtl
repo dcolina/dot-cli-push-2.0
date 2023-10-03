@@ -1,0 +1,22 @@
+<div class="row">
+#foreach($con in $dotcontent.pull("+contentType:Video +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST)",10,"Video.title desc"))
+    ## Checks to see if the video is already being shown in the feaatured Spot
+    #if($con.id != $fvideo)
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="video-card video-btn mb-2 " style="background-image: url('$!{con.thumbnailLarge}');" data-toggle="modal" data-src="https://www.youtube.com/embed/$!{con.id}" data-target="#iframeModal">
+            <i class="icon-play">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+            <path d="M40,72C22.4,72,8,57.6,8,40C8,22.4,22.4,8,40,8c17.6,0,32,14.4,32,32C72,57.6,57.6,72,40,72z M40,10	c-16.5,0-30,13.5-30,30s13.5,30,30,30s30-13.5,30-30S56.5,10,40,10z"></path>
+            <polygon points="41.7,30.3 40.3,31.7 47.6,39 31,39 31,41 47.6,41 40.3,48.3 41.7,49.7 51.4,40 "></polygon>
+            </svg>
+        </i>
+        <div class="gray-screen"></div>
+        </div>
+        <div class="mt-0 mb-5 px-3 small">$con.title</div>
+        <div class="sr-only">
+        <a href="https://www.youtube.com/embed/$!{id}" target="_blank">Click here to play "$con.title" video</a>
+        </div>
+    </div>
+    #end
+#end
+</div>

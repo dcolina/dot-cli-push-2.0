@@ -1,0 +1,17 @@
+<h1 class="text-center">Featured Activities</h1>
+<div class="row justify-content-center">
+    #foreach($activity in $dotPageContent.activities)
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-3">
+            <a class="box-info" href="/activities/$activity.urlTitle">
+                <img class="box-info-img" src="/dA/${activity.identifier}/image/270w/50q/$!{activity.image.name}" alt="$activity.title" width="270" height="270">
+                <div class="box-info-body">
+                    <h4 class="box-info-title">
+                        $activity.title
+                    </h4>
+                    <p class="box-info-text">$UtilMethods.prettyShortenString("$activity.description", 120)</p>
+                </div>
+                #editContentlet($activity.inode)
+            </a>
+        </div>
+    #end
+</div>

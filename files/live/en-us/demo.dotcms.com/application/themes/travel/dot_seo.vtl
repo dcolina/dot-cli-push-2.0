@@ -1,0 +1,180 @@
+#set($dotSeo = {})
+
+#####################
+## META TAGS ##
+#####################
+
+## SET PAGE TITLE
+#if($UtilMethods.isSet($URLMapContent))
+    #if($UtilMethods.isSet($URLMapContent.pageTitle))
+        #set($pageTitle = $URLMapContent.pageTitle)
+    #elseif($UtilMethods.isSet($URLMapContent.ogTitle))
+        #set($pageTitle = $URLMapContent.ogTitle)
+    #else
+        #set($pageTitle = $URLMapContent.title)
+    #end
+#else
+    #if($UtilMethods.isSet($dotPageContent.pageTitle))
+        #set($pageTitle = $dotPageContent.pageTitle)
+    #elseif($UtilMethods.isSet($dotPageContent.ogTitle))
+        #set($pageTitle = $dotPageContent.ogTitle)
+    #else
+        #set($pageTitle = $dotPageContent.title)
+    #end
+#end
+$!dotSeo.put('pageTitle', ${pageTitle})
+
+
+## SET META DESCRIPTION
+#if($UtilMethods.isSet($URLMapContent))
+    #if($UtilMethods.isSet($URLMapContent.metaDescription))
+        #set($metaDescription = $URLMapContent.metaDescription)
+    #elseif($UtilMethods.isSet($URLMapContent.ogDescription))
+        #set($metaDescription = $URLMapContent.ogDescription)
+    #elseif($UtilMethods.isSet($URLMapContent.description))
+        #set($desTemp = $URLMapContent.description.replaceAll("<[^>]+>|\\n", ""))
+        #set($desTemp = $UtilMethods.truncatify($desTemp, 200))
+        #set($metaDescription = $desTemp)
+    #elseif($UtilMethods.isSet($URLMapContent.body))
+        #set($desTemp = $URLMapContent.body.replaceAll("<[^>]+>|\\n", ""))
+        #set($metaDescription = $UtilMethods.truncatify($desTemp, 200))
+    #end
+#else
+    #if($UtilMethods.isSet($dotPageContent.metaDescription))
+        #set($metaDescription = $dotPageContent.metaDescription)
+    #elseif($UtilMethods.isSet($dotPageContent.ogDescription))
+        #set($metaDescription = $dotPageContent.ogDescription)
+    #end
+#end
+$!dotSeo.put('metaDescription', $metaDescription)
+
+
+## SET META Keywords
+#set($metaKeywords = "")
+#if($UtilMethods.isSet($URLMapContent.metaKeywords))
+    #foreach( $keyword in $URLMapContent.metaKeywords )
+        #set($metaKeywords = $metaKeywords + $keyword)
+        #if($foreach.hasNext())
+            #set($metaKeywords = $metaKeywords + ", ")
+        #end
+    #end
+#elseif($UtilMethods.isSet($dotPageContent.metaKeywords))
+    #foreach( $keyword in $dotPageContent.metaKeywords )
+        #set($metaKeywords = $metaKeywords + $keyword)
+        #if($foreach.hasNext())
+            #set($metaKeywords = $metaKeywords + ", ")
+        #end
+    #end
+#end
+$!dotSeo.put('metaKeywords', ${metaKeywords})
+
+
+## SET CANONICAL URL
+#if($UtilMethods.isSet($URLMapContent.canonicalUrl))
+    #set($canonicalUrl = ${URLMapContent.canonicalUrl})
+#elseif($UtilMethods.isSet($dotPageContent.canonicalUrl))
+    #set($canonicalUrl = ${dotPageContent.canonicalUrl})
+#else
+    #set($canonicalUrl = $!{request.getAttribute("javax.servlet.forward.request_uri")})
+#end
+$!dotSeo.put('canonicalUrl', ${canonicalUrl})
+
+####################
+## SET ROBOT TAGS ##
+####################
+
+#set($robots = "")
+#if($URLMapContent.searchEngineIndex.selectedValues.contains('index') || $dotPageContent.searchEngineIndex.selectedValues.contains('index'))
+    #set($robots = "index")
+#else
+    #set($robots = "noindex")
+#end
+#if($URLMapContent.searchEngineIndex.selectedValues.contains('follow') || $dotPageContent.searchEngineIndex.selectedValues.contains('follow'))
+    #set($robots = $robots + ", follow")
+#else
+    #set($robots = $robots + ", nofollow")
+#end
+$!dotSeo.put('robots', ${robots})
+
+
+#if($URLMapContent.searchEngineIndex.selectedValues.contains('snippet') || $dotPageContent.searchEngineIndex.selectedValues.contains('snippet'))
+    #set($snippet = "-1")
+#else
+    #set($snippet = "0")
+#end
+$!dotSeo.put('snippet', ${snippet})
+
+
+
+#####################
+## OPEN GRAPH TAGS ##
+#####################
+
+## SET OG Type
+#if($UtilMethods.isSet($URLMapContent.ogType.selectValue))
+    #set($ogType = $dotPageContent.ogType.selectValue)
+#elseif($UtilMethods.isSet($dotPageContent.ogType.selectValue))
+    #set($ogType = $dotPageContent.ogType.selectValue)
+#else
+    #set($ogType = 'website')
+#end
+$!dotSeo.put('ogType', ${ogType})
+
+
+## SET OG TITLE
+#if($UtilMethods.isSet($URLMapContent))
+    #if($UtilMethods.isSet($URLMapContent.ogTitle))
+        #set($ogTitle = $URLMapContent.ogTitle)
+    #elseif($UtilMethods.isSet($URLMapContent.pageTitle))
+        #set($ogTitle = $URLMapContent.pageTitle)
+    #else
+        #set($ogTitle = $URLMapContent.title)
+    #end
+#else
+    #if($UtilMethods.isSet($dotPageContent.ogTitle))
+        #set($ogTitle = $dotPageContent.ogTitle)
+    #elseif($UtilMethods.isSet($dotPageContent.pageTitle))
+        #set($ogTitle = $dotPageContent.pageTitle)
+    #else
+        #set($ogTitle = $dotPageContent.title)
+    #end
+#end
+$!dotSeo.put('ogTitle', ${ogTitle})
+
+
+## SET OG DESCRIPTION
+#if($UtilMethods.isSet($URLMapContent))
+    #if($UtilMethods.isSet($URLMapContent.ogDescription))
+        #set($ogDescription = $URLMapContent.ogDescription)
+    #elseif($UtilMethods.isSet($URLMapContent.metaDescription))
+        #set($ogDescription = $URLMapContent.metaDescription)
+    #elseif($UtilMethods.isSet($URLMapContent.description))
+        #set($ogDescription = $URLMapContent.description)
+    #elseif($UtilMethods.isSet($URLMapContent.body))
+        #set($ogDescription = $UtilMethods.truncatify($URLMapContent.body, 200))
+    #end
+#else
+    #if($UtilMethods.isSet($dotPageContent.ogDescription))
+        #set($ogDescription = $dotPageContent.ogDescription)
+    #elseif($UtilMethods.isSet($dotPageContent.metaDescription))
+        #set($ogDescription = $dotPageContent.metaDescription)
+    #end
+#end
+$!dotSeo.put('ogDescription', ${ogDescription})
+
+
+## SET PAGE OG
+#if($UtilMethods.isSet($URLMapContent))
+    #if($UtilMethods.isSet($URLMapContent.ogImage.name))
+        #set($ogImage = '/dA/' + $URLMapContent.identifier + '/ogImage/1140w/' + $URLMapContent.ogImage.name)
+    #elseif($UtilMethods.isSet($URLMapContent.shorty))
+        #set($ogImage = $URLMapContent.shortyUrl + '/1140w/')
+    #end
+#elseif($UtilMethods.isSet($dotPageContent.ogImage.name))
+    #set($ogImage = '/dA/' + $dotPageContent.identifier + '/ogImage/1140w/' + $dotPageContent.ogImage.name)
+#elseif($UtilMethods.isSet($dotPageContent.shorty))
+    #set($ogImage = $dotPageContent.shortyUrl + '/1140w/')
+#else
+    #set($ogImage = ${dotTheme.path} + 'img/default.png')
+#end
+$!dotSeo.put('ogImage', ${ogImage})

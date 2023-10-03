@@ -1,0 +1,29 @@
+blockquote {
+  font-size: 24px;
+  line-height: 1.6;
+  font-style: italic;
+  letter-spacing: 0;
+  color: $gray-400;
+  margin: 30px;
+}
+
+.quote-icon {
+  font-size: 60px;
+  line-height: 1;
+  margin-left: -14px;
+  color: $primary;
+  transform: scale(-1, -1);
+  will-change: transform;
+}
+
+
+
+.quote-cite {
+  font-size: $font-size-lg;
+  line-height: 1.67;
+  font-weight: 700;
+  font-family: $font-family-sec;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: $primary;
+}

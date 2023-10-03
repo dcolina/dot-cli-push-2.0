@@ -1,0 +1,8 @@
+#if(${dotThemeContainers})
+   #set($containerTheme = ${dotThemeContainers})
+#else
+   #set($containerTheme = "/application/themes/travel/")
+#end
+
+#set($containerPath = ${containerTheme} + "containers/image.vtl")
+#dotParse($containerPath)

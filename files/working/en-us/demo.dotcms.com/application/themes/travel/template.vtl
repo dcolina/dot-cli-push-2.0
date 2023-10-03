@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+#if($dotTheme.htmlHead)
+    #dotParse("${dotTheme.path}html_head.vtl")
+#end
+
+#set($utilClass = $pageTitle.toLowerCase().replace(' ', '-'))
+
+<body id="$utilClass" #if($EDIT_MODE)class="edit-mode"#end>
+
+    #if($dotThemeLayout.header)
+        #dotParse("${dotTheme.path}header.vtl")
+    #end
+
+    <div class="body-wrapper">
+    
+            ## IF PAGE HAS BANNER ##
+
+            
+            ##Main column
+            #set ($mainColumn = $dotThemeLayout.body)
+    
+            ##Sidebar
+            #set ($sidebar = $dotThemeLayout.sidebar)
+            
+    
+            ############################
+            ## SIDEBAR - (IF PRESENT) ##
+            ############################
+            #if ($sidebar && $sidebar.location != "")
+    
+                #if ($sidebar.width == 'small')
+                    #set ($sidebarColumn1Span = "col-sm-2")
+                    #set ($sidebarColumn2Span = "col-sm-10")
+                #elseif ($sidebar.width == 'medium')
+                    #set ($sidebarColumn1Span = "col-sm-3")
+                    #set ($sidebarColumn2Span = "col-sm-9")
+                #elseif ($sidebar.width == 'large')
+                    #set ($sidebarColumn1Span = "col-sm-4")
+                    #set ($sidebarColumn2Span = "col-sm-8")
+                #else
+                    #set ($sidebarColumn1Span = "")
+                    #set ($sidebarColumn2Span = "")
+                #end
+    
+                <div class="container">
+                    <div class="row">
+                    #if ($sidebar.location == "left")
+                        <div class="$sidebarColumn1Span">
+                            ##Draw the column content
+                            $render.eval($sidebar.draw())
+                        </div><!--/div sidebar left-->
+                        <div class="$sidebarColumn2Span">
+                    #else
+                        <div class="$sidebarColumn2Span">
+                    #end
+            #end
+            
+            #########################################
+            ## ADDING THE ROWS FOR THE MAIN COLUMN ##
+            #########################################
+            #if ($mainColumn.rows)
+
+                #set($rowCount = 0)
+                #foreach($row in $mainColumn.rows)
+                    #set($rowCount = $rowCount + 1)
+                    #set($rowLeftOffset = 1)
+                    ##Every row will have a number of columns
+                    #foreach($column in $row.columns)
+                        #if($velocityCount == 1)
+                        
+                        <section id="section-$!{rowCount}" class="section $!{row.styleClass}"><!-- section -->
+                            <div class="container"><!-- container -->
+                                <div class="row"><!-- row -->
+                        #end
+
+                        ## Depending on the width of the column Makes col smaller than 3 shrink only donw to 6 by defualt
+                        #set ($currentColumnSpan = "#if($column.width <= 3)col-6#end col-lg-${column.width}")
+                        #set ($offset = 0)
+                        
+                        ## Set the bootstrap Offset of each column based on the left offset of the row. 
+                        #if ($rowLeftOffset == $column.leftOffset)
+                            #set($columnOffset = "")
+                        #else
+                            #set($offset = $column.leftOffset - $rowLeftOffset)
+                            #set($columnOffset = "offset-lg-${offset}")
+                        #end
+                        #set($rowLeftOffset = $rowLeftOffset + $column.width + $offset)
+                        
+                                    <div class="$currentColumnSpan $columnOffset $!{column.styleClass}"><!-- Column -->
+                                        ##Draw the column content
+                                        $render.eval($column.draw())
+                                    </div><!-- Column -->
+
+                        #if($velocityCount == $row.columns.size())
+                                </div><!-- /row -->
+                            </div><!-- /container -->
+                        </section><!-- /section -->
+                        #end
+                    #end
+                #end
+            #end
+    
+            ############################
+            ## SIDEBAR - (IF PRESENT) ##
+            ############################
+            #if ($sidebar && $sidebar.location != "")
+                #if ($sidebar.location == "left")
+                    </div><!--/div columns-->
+                #else
+                    </div><!--/div columns-->
+                    <div class="$sidebarColumn1Span">
+                        ##Draw the column content
+                        $render.eval($sidebar.draw())
+                    </div><!--/div sidebar right-->
+                #end
+                </div><!--/div row-->
+            </div><!-- /container-->
+            #end
+    </div><!-- /body-wrapper -->
+
+    #if($dotThemeLayout.footer)
+        #dotParse("${dotTheme.path}footer.vtl")
+    #end
+
+</body>
+</html>

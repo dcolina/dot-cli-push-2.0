@@ -1,0 +1,33 @@
+#set ($content = $item.attrs.data)
+
+<div class="blog-contentlet">
+    <img class="blog-contentlet__image" alt="$!content.title" src="/dA/$!content.identifier/370w/20q"/ />
+
+    <div class="blog-contentlet__desc">
+        <h3>$!content.title</h3>
+        <span>
+            #if ($!content.contentType == 'Product')
+                $!content.description
+            #else
+                $!content.shortDescription
+            #end 
+        </span>
+    </div>
+    <div class="blog-contentlet__action">
+	    #if ($!content.contentType == 'Product')
+            #set ($salePrice = $!content.salePrice)	           
+            #if ($salePrice)
+                <div class="blog-contentlet__price">
+                    <span class="current-price sale-price">$!content.salePrice</span>
+                    <span class="original-price">$!content.retailPrice</span>
+                </div>
+            #else
+                <span class="current-price sale-price">$!content.retailPrice</span>
+            #end
+		    <a class="button button-primary" href="/store/products/$!{$content.salePrice}">Buy</a>
+	    #end
+        #if ($!content.contentType == 'Destination')
+	    	<a class="button button-primary custom-block-content-info" href="$!content.url">View Details</a>
+	    #end
+    </div>
+</div>

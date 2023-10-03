@@ -1,0 +1,15 @@
+@import "/application/themes/travel/css/styles.dotsass";
+
+p {
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.mce-content-body {
+ padding: 20px;
+ background: #fff;
+}
+
+.mce-btn {
+    background-image: none !important;
+}

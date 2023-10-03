@@ -1,0 +1,84 @@
+<style>
+	#template_tag {display: none;}
+	#template_field {display: none;}
+	.layoutWrapper {
+		width: 80vw;
+		max-width: 1000px;
+		border: 1px solid #ededed;
+		padding:15px;
+	}
+	.layouts {
+		display: flex;
+		flex-wrap: wrap;
+		overflow: scroll; 
+		max-height: 70vh;
+	}
+	.layoutOption {
+		display: block;
+		margin-left: 30px;
+		border: solid 1px #777;
+		text-align: center;
+		width: 300px;
+		opacity: .6;
+	}
+	.layoutOption:first-of-type {
+		margin-left: 0px;
+	}
+	.layoutOption img {
+		width: 100%;
+	}
+	.layoutOption:hover{
+		opacity: 1;
+		border: solid 1px #000;
+	} 
+	.active {
+		opacity: 1;
+		border: solid 1px #F26732;
+	}
+</style>
+
+
+<script>
+	dojo.addOnLoad( function(){
+		var templateVal = dojo.byId("template").value;
+		var x = dojo.byId("layout").value;
+		
+		if(x == ""){
+			dojo.byId("template").value = "fde4c167-edf4-4699-8a3a-0bf155067555";
+		}
+		
+		if(x != ""){
+			dijit.byId("layoutSelect").setValue(x);
+			dojo.addClass("layout" + x, "active");
+			dojo.byId("layoutImage").src = "/application/vtl/custom-fields/layouts/page/layout-" + x + ".jpg";
+		}
+	});
+	
+	function setLayout(x){
+		dojo.query("#layouts a").removeClass("active");
+		dojo.addClass("layout" + x, "active");
+		dojo.byId("layout").value = x;
+		dojo.byId("layoutSelect").value = x;
+		dijit.byId("layoutDialog").hide();
+		dojo.byId("layoutImage").src = "/application/vtl/custom-fields/layouts/page/layout-" + x + ".jpg";
+	}
+	
+	function openDialog(){
+		dijit.byId("layoutDialog").show();
+	}
+</script>
+
+<div style="width: 225px; height: 305px;margin-bottom: 10px;" onclick="openDialog();"><img id="layoutImage" class="layoutThumbnail" src="/application/vtl/custom-fields/layouts/page/layout-0.jpg" style="width: 100%;"></div>
+<input id="layoutSelect" dojoType="dijit.form.TextBox" readonly="readonly" name="layoutSelect" type="text" onclick="openDialog();" style="display: none;">
+<button id="buttonOne" dojoType="dijit.form.Button" type="button" iconClass="contentIcon" onclick="openDialog();">Change Layout</button>
+
+<div id="layoutDialog" data-dojo-type="dijit.Dialog" title="Page Layout">
+	<div class="layoutWrapper">
+		<div id="layouts" class="layouts">
+			<a id="layout1" onclick="setLayout('1');" class="layoutOption"><img src="/application/vtl/custom-fields/layouts/page/layout-1.jpg"></a>
+			<a id="layout2" onclick="setLayout('2');" class="layoutOption"><img src="/application/vtl/custom-fields/layouts/page/layout-2.jpg"></a>
+			<a id="layout3" onclick="setLayout('3');" class="layoutOption"><img src="/application/vtl/custom-fields/layouts/page/layout-3.jpg"></a>
+		</div>
+	</div>
+</div>
+

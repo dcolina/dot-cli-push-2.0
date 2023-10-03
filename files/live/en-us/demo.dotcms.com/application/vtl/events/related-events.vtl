@@ -1,0 +1,24 @@
+<!-- VTL File: /application/vtl/events/related-events.vtl -->
+
+<h1 class="text-center">Upcoming Events </h1>
+
+<div class="row">
+    #foreach($event in $dotcontent.pull("+calendarEvent.location:*$dotPageContent.identifier*", 4, "calendarEvent.startDate"))
+        <div class="col-md-6 col-lg-4">
+            <div class="post post-classic mb-5">
+                <a class="post-img-wrap" href="/events/$event.urlTitle">
+                    <img class="post-img" src="/dA/$!{event.identifier}/image/370w/50q/$!{event.image.name}" alt="$!{event.title}" width="370" height="254">
+                </a>
+                
+                <h3 class="post-title"><a href="/events/$event.urlTitle">$event.title</a> #editContentlet($event.inode)</h3>
+                #set($x = $UtilMethods.prettyShortenString("$event.description", 120))
+                #set($x = $x.replaceAll("</?[^>]+/?>", ""))
+                <p class="post-text">$x</p>
+                <time class="post-classic-time" datetime="$date.format('yyyy-MM-dd h:mm a', ${event.startDate})">
+                    <span class="heading-1">$date.format('dd', ${event.startDate})</span>
+                    $date.format('MMMM', ${event.startDate})
+                </time>
+            </div>
+        </div>
+    #end
+</div>

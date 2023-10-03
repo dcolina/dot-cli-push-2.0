@@ -1,0 +1,115 @@
+/**
+*
+* RD Navbar Classic
+* =====================================================
+*/
+
+.rd-dropdown-item {
+  list-style: none;
+}
+.rd-navbar-fixed .rd-navbar-nav {
+  padding-left: 0;
+}
+.rd-navbar-classic {
+  // Static
+  &.rd-navbar-static {
+    
+    .rd-navbar-aside-outer,
+    .rd-navbar-main-outer {
+      padding-left: $grid-gutter-width / 2;
+      padding-right: $grid-gutter-width / 2;
+    }
+  
+    .rd-navbar-aside,
+    .rd-navbar-main {
+      max-width: 1170px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .rd-navbar-aside {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0;
+
+      .unit {
+
+        a {
+          color: $gray-800;
+
+          &:hover {
+            color: $primary;
+          }
+        }
+
+        .icon {
+          font-size: 22px;
+          color: $gray-400;
+          vertical-align: middle;
+        }
+      }
+    }
+  
+    .rd-navbar-main {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0 20px;
+
+      // Extra large ≥1200px
+      @include media-breakpoint-up(xl) {
+        padding: 30px 0 30px;
+      }
+
+      // Extra large ≥1600px
+      @include media-breakpoint-up(xxl) {
+        padding: 35px 0 35px;
+      }
+    }
+  
+    // RD Navbar Brand
+    .rd-navbar-brand {
+      img {
+        width: auto;
+        height: auto;
+      }
+    }
+  
+    .rd-navbar-main-element {
+      display: flex;
+      align-items: center;
+
+      @include media-breakpoint-up(xxl) {
+        margin-right: -8px;
+      }
+    }
+  
+    &.rd-navbar--is-stuck,
+    &.rd-navbar--is-clone {
+      box-shadow: 0 1px 22px -4px rgba($black, .17);
+
+      .rd-navbar-aside-outer {
+        display: none;
+      }
+    
+      .rd-navbar-main {
+        padding: 15px 0 15px;
+      }
+
+      .brand { max-width: 170px }
+    
+      .rd-navbar-nav-item {
+        > .rd-navbar-submenu {
+          margin-top: 17px;
+        }
+      }
+    }
+  }
+  
+  // Fixed
+  &.rd-navbar-fixed {
+  
+  }
+}

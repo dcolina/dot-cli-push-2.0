@@ -1,0 +1,23 @@
+{ 
+    theme: 'modern',
+    selector: "textarea",
+    menubar: false,
+    statusbar: true,
+    plugins: [
+        "advlist anchor autolink lists link image charmap print  hr anchor ",
+        "searchreplace wordcount visualchars  ",
+        "emoticons  paste textcolor colorpicker textpattern validation dotimageclipboard compat3x"
+    ],
+    height:"450px",
+    resize: true,
+    image_advtab: true,
+    image_caption: true,
+    browser_spellcheck: true,
+    paste_auto_cleanup_on_paste: true, 
+    paste_strip_class_attributes: "mso", 
+    toolbar1: "undo redo | formatselect | bold italic | bullist numlist outdent indent | link image",
+    content_css: "/application/wysiwyg/wysiwyg.css",
+    file_picker_callback: function(callback, value, meta) {
+        cmsFileBrowser(callback, value, meta);
+    }
+}

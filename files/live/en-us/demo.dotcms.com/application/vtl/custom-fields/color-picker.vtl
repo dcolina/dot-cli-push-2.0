@@ -1,0 +1,51 @@
+<script>
+
+	dojo.require("dojox.widget.ColorPicker");
+	
+		
+	dojo.addOnLoad( function(){
+		var x = dojo.byId("$fieldName").value;
+		
+		if(x != ""){
+			dijit.byId("bgColor").setValue(x);
+			dojo.byId("colorBlock").style.background = x;
+			dijit.byId("picker1").setValue(x);
+		}
+	});
+	
+	// UPDATES VALUES From Text Field
+	function setColor(){
+		var x = dojo.byId("bgColor").value;
+		dojo.byId("colorBlock").style.background = x;
+		dojo.byId("$fieldName").value = x;
+		if(dijit.byId("picker1")){
+			dijit.byId("picker1").setValue(x);
+		}
+	}
+	
+	// UPDATES VALUES From Picker
+	function pickerColor(){
+		var x = dijit.byId("picker1").value;
+		dojo.byId("colorBlock").style.background = x;
+		dojo.byId("$fieldName").value = x;
+		dojo.byId("bgColor").value = x;
+	}
+	
+	// OPEN COLRO PICKER
+	function openPicker() {
+		dijit.byId("colorPickerDialog").show();
+	    dojo.connect(dijit.byId("picker1"), "onChange", pickerColor);
+	}
+</script>
+
+<div style="position:relative;">
+	<input id="bgColor" dojoType="dijit.form.TextBox" name="bgColor" size="5" type="text" value="" style="width:170px;padding-left: 55px;" onchange="setColor();">
+	<button id="pickerColorBtn" dojoType="dijit.form.Button" type="button" iconClass="colorIcon" onclick="openPicker();">
+	    Color Picker
+	 </button>
+	<div id="colorBlock" style="position:absolute;left:5px;border:1px solid #b3b3b3;top:4px;width:40px;height:28px;display:block;" onclick="openPicker();"></div>
+</div>
+
+<div id="colorPickerDialog" data-dojo-type="dijit.Dialog" title="Color Picker">
+   <div dojoType="dojox.widget.ColorPicker" id="picker1" webSafe="false" liveUpdate="true" ></div>
+</div>

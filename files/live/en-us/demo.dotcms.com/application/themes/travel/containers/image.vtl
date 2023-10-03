@@ -1,0 +1,18 @@
+#if($UtilMethods.isSet($style))
+    <div class="$style" style="background-image: url('/dA/${ContentIdentifier}/884w/50q/$!{fileName}')"></div>
+#else
+<article class="thumbnail-classic mb-5">
+    <a class="thumbnail-classic-figure" href="/dA/${ContentIdentifier}/$!{fileName}/1200w" data-lightgallery="item">
+        <picture>
+            <source media="(min-width: 800px)" srcset="/dA/${ContentIdentifier}/$!{fileName}/1200w/50q/$!{fileName}, /dA/${ContentIdentifier}/$!{fileName}/2400w/50q/$!{fileName} 2x">
+            <source media="(min-width: 480px)" srcset="/dA/${ContentIdentifier}/$!{fileName}/600w/50q/$!{fileName}, /dA/${ContentIdentifier}//1200w/50q/$!{fileName} 2x">
+            <img src="/dA/${ContentIdentifier}/$!{fileName}/480w/50q/$!{fileName}" alt="$!{description}" class="img-fluid">
+        </picture>
+    </a>
+    <div class="thumbnail-classic-caption">
+        <h4 class="thumbnail-classic-title">$!{title}</h4>
+        <p class="thumbnail-classic-text">$!{description}</p>
+        <a class="thumbnail-classic-link mdi mdi-plus-circle-outline" href="/dA/${ContentIdentifier}/1200w/50q/$!{fileName}" data-lightgallery="item"></a>
+    </div>    
+</article>
+#end

@@ -1,0 +1,160 @@
+$response.setContentType("application/xml")
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://${host}</loc>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    </url>
+##Folders with pages:
+#set($esQuery = '
+{
+    "query": {
+        "query_string": {
+            "query": "+baseType:5"
+        }
+    },
+    "aggs": {
+        "folders": {
+            "terms": {
+                "field": "parentpath_dotraw",
+                "size" : 2000
+            }
+        }
+    },
+    "size": 0
+}
+')
+#set($rawResults = $estool.search($render.eval($esQuery)))
+#set($results = $json.generate($rawResults.response))
+#foreach($folder in $results.aggregations.get("asMap").folders.buckets)
+    <url>
+        <loc>https://${host}${folder.key}</loc>
+        <changefreq>always</changefreq>
+        <priority>0.9</priority>
+    </url>
+#end
+
+
+##Pages:
+#set($esQuery = '
+{
+    "query": {
+        "query_string": {
+            "query": "+baseType:5"
+        }
+    },
+    "aggs": {
+        "folders": {
+            "terms": {
+                "field": "path_dotraw",
+                "size" : 2000,
+                "searchEngineIndex.selectedValues" : "true"
+            }
+        }
+    },
+    "size": 0
+}
+')
+#set($rawResults = $estool.search($render.eval($esQuery)))
+#set($results = $json.generate($rawResults.response))
+#foreach($folder in $results.aggregations.get("asMap").folders.buckets)
+    <url>
+        <loc>https://${host}${folder.key}</loc>
+        <changefreq>always</changefreq>
+        <priority>0.9 pages</priority>
+    </url>
+#end
+
+
+
+##Folders with pdfs:
+#set($esQuery = '
+{
+    "query": {
+
+        "regexp": {
+            "path": "(.*?).pdf"
+        }
+    },
+    "aggs": {
+        "folders": {
+            "terms": {
+                "field": "parentpath_dotraw",
+                "size" : 2000
+            }
+        }
+    },
+    "size": 0
+}
+')
+#set($rawResults = $estool.search($render.eval($esQuery)))
+#set($results = $json.generate($rawResults.response))
+#foreach($folder in $results.aggregations.get("asMap").folders.buckets)
+    <url>
+        <loc>https://${host}${folder.key}</loc>
+        <changefreq>always</changefreq>
+        <priority>0.9</priority>
+    </url>
+#end
+
+
+##PDFs:
+#set($esQuery = '
+{
+    "query": {
+
+        "regexp": {
+            "path": "(.*?).pdf"
+        }
+    },
+    "aggs": {
+        "folders": {
+            "terms": {
+                "field": "path_dotraw",
+                "size" : 2000
+            }
+        }
+    },
+    "size": 0
+}
+')
+#set($rawResults = $estool.search($render.eval($esQuery)))
+#set($results = $json.generate($rawResults.response))
+#foreach($folder in $results.aggregations.get("asMap").folders.buckets)
+    <url>
+        <loc>https://${host}${folder.key}</loc>
+        <changefreq>always</changefreq>
+        <priority>0.9</priority>
+    </url>
+#end
+
+
+##URLMaps:
+#set($esQuery = '
+{
+    "query": {
+        "query_string": {
+            "query": "+baseType:1"
+        }
+    },
+    "aggs": {
+        "folders": {
+            "terms": {
+                "field": "urlmap_dotraw",
+                "size" : 2000
+            }
+        }
+    },
+    "size": 0
+}
+')
+#set($rawResults = $estool.search($render.eval($esQuery)))
+#set($results = $json.generate($rawResults.response))
+#foreach($folder in $results.aggregations.get("asMap").folders.buckets)
+    <url>
+        <loc>https://${host}${folder.key}</loc>
+        <changefreq>always</changefreq>
+        <priority>0.9</priority>
+    </url>
+#end
+</urlset>

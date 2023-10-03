@@ -1,0 +1,42 @@
+##Set Custom Field to ID of logged in user on Backend or Front end
+#set($foundUser = $session.getAttribute("USER_ID"))
+
+#if($foundUser)
+	#set($userId = "$!{foundUser}")
+#end 
+
+<strong id="userIdValue"></strong>
+
+<script>
+
+    function setCustomUserIdValue(){
+    
+    	var userId = "$!{userId}";
+
+        //Set the saved value already stored
+        var value = dojo.byId("userId").value;
+        
+        //finds current value of the id stored previously
+		if (value) {
+			var currentValue = value;
+			dojo.byId("userId").value = currentValue;
+			dojo.byId("userIdValue").innerHTML = currentValue;
+			//To manually set ids if needed
+			//dojo.byId("userId").value = "user-d02669ae-26bb-4329-bafa-8d718f92c91d";
+			//dojo.byId("userIdValue").innerHTML = "user-d02669ae-26bb-4329-bafa-8d718f92c91d";
+		}
+        
+        //Only set the data to be set if it is a new record
+        if (currentValue == null || currentValue == undefined || currentValue == "" || currentValue == 0 || currentValue == NaN) {
+            dojo.byId("userId").value = userId;
+            dojo.byId("userIdValue").innerHTML = userId;
+        } 
+
+        
+    }
+
+    dojo.addOnLoad (function(){
+        setCustomUserIdValue();
+    });
+
+</script>

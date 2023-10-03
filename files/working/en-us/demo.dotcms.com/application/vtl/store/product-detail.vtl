@@ -1,0 +1,138 @@
+#if($URLMapContent.inode)
+
+<div class="row justify-content-center">
+
+	<div class="col-sm-10 col-md-12 col-lg-6 col-xl-5">
+		<!-- Product Carousel-->
+		<div class="thumnail-carousel">
+			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+				<div class="carousel-inner">
+					<div class="carousel-item text-center active">
+						<img src="/dA/$URLMapContent.identifier/image/460h/50q/$URLMapContent.image.name" alt="$URLMapContent.title">
+					</div>
+					#if($UtilMethods.isSet($URLMapContent.image2.rawUri))
+					<div class="carousel-item text-center">
+						<img src="/dA/$URLMapContent.identifier/image2/460h/50q/$URLMapContent.image2.name" alt="$URLMapContent.title">
+					</div>
+					#end
+					#if($UtilMethods.isSet($URLMapContent.image3.rawUri))
+					<div class="carousel-item">
+						<img src="/dA/$URLMapContent.identifier/image3/460h/50q/$URLMapContent.image3.name" alt="$URLMapContent.title">
+					</div>
+					#end
+				</div>
+
+				<ol class="carousel-indicators">
+					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"><img src="/dA/$URLMapContent.identifier/image/130h/50q/$URLMapContent.image.name"></li>
+					#if($UtilMethods.isSet($URLMapContent.image2.rawUri))
+					<li data-target="#carouselExampleIndicators" data-slide-to="1"><img src="/dA/$URLMapContent.identifier/image2/130h/50q/$URLMapContent.image2.name"></li>
+					#end
+					#if($UtilMethods.isSet($URLMapContent.image3.rawUri))
+					<li data-target="#carouselExampleIndicators" data-slide-to="2"><img src="/dA/$URLMapContent.identifier/image3/130h/50q/$URLMapContent.image3.name"></li>
+					#end
+				</ol>
+
+			</div>
+		</div>
+	</div><!-- END COLUMN -->
+
+	<div class="col-lg-6 col-xl-5">
+		<div class="box-product-description">
+			<h3
+			    class="description-title"
+                #if ($EDIT_MODE) 
+                    data-language="${CONTENT_LANGUAGE}"
+                    data-mode="minimal"
+                    data-inode="${ContentInode}"
+                    data-field-name="title"      
+                #end
+			>$URLMapContent.title</h3>
+			<div class="description-body"
+                #if ($EDIT_MODE) 
+                    data-language="${CONTENT_LANGUAGE}"
+                    data-mode="full"
+                    data-inode="${ContentInode}"
+                    data-field-name="description"      
+                #end
+			>$URLMapContent.description</div>
+			
+			<!--
+			<div class="group-lg">
+				<div class="box-product-rewards"><span class="icon mdi mdi-star"></span><span>Bestseller <span>2016</span></span></div>
+				<div class="box-product-rewards"><span class="icon mdi mdi-trophy"></span><span>Bestseller <span>2015</span></span></div>
+				<div class="box-product-rewards"><span class="icon mdi mdi-comment-processing"></span><a href="#">2 customer reviews</a></div>
+			</div>
+			-->
+
+			<div class="box-product-count"><span class="text-gray-600">Quantity</span>
+				<div class="stepper-variant-2">
+					<div class="stepper "><input class="form-input stepper-input" type="number" data-zeros="true" value="1" min="1" max="1000">
+						<span class="stepper-arrow up"></span><span class="stepper-arrow down"></span>
+					</div>
+				</div>
+			</div>
+		
+			<div class="box-product-prices">
+				#if($UtilMethods.isSet($URLMapContent.salePrice))
+					<span class="current-price sale-price">$!{URLMapContent.salePrice}</span>
+					<span class="original-price">$!{URLMapContent.retailPrice}</span>
+				#else
+					<span class="current-price">$!{URLMapContent.retailPrice}</span>
+				#end
+			</div>
+
+			<div class="group-md">
+				<a class="button button-primary" href="/store/cart">Add to cart</a>
+				<!--<a class="button button-white-outline" href="/store/cart">Add to wishlist</a>-->
+			</div>
+		</div>
+	</div><!-- END COLUMN -->
+
+</div><!-- END ROW -->
+
+<div class="row justify-content-center mt-5">
+	<div class="col-10">
+
+		<div class="tabs-custom tabs-horizontal tabs-corporate" id="tabs-1">
+			<!-- Nav tabs-->
+			<ul class="nav nav-tabs">
+				<li class="nav-item" role="presentation"><a class="nav-link active" href="#tabs-1-1" data-toggle="tab">Specs</a></li>
+				<!--<li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-1-2" data-toggle="tab">Reviews</a></li>-->
+				<!--<<li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-1-3" data-toggle="tab">Recommended Items</a></li>-->
+			</ul>
+
+			<!-- Tab panes-->
+			<div class="tab-content" style="background: #fff;padding: 25px 20px 50px 20px; border-left: 1px solid #dee2e6;">
+				<div class="tab-pane fade show active" id="tabs-1-1">
+					<div class="row">
+						<div class="col-md-8 offset-lg-1">
+
+							#if($URLMapContent.specifications1 != "{}")
+								<h4 class="mb-3">Tech Specs</h4>
+								<table class="table table-lined">
+									#foreach($spec in $URLMapContent.specifications1.map.entrySet())
+										<tr><th>$spec.key</th> <td>$spec.value</td></tr>
+									#end 
+								</table>
+							#end
+							<p class="pl-2"><b>30 Day No-Hassle Money Back Guarantee.</b></p>
+						</div>
+						<div class="col-md-5"></div>
+					</div>
+				</div>
+				<!--<div class="tab-pane fade" id="tabs-1-3">
+					<p>Our site design and navigation has been thoroughly thought out. The layout is aesthetically appealing, contains concise texts in order not to take your precious time. Text styling allows scanning the pages quickly. Site navigation is extremely intuitive and user-friendly.</p>
+				</div>-->
+			</div>
+		</div>
+		
+	</div>
+</div>
+#else
+
+	<div class="alert alert-info">
+		<h3>We are sorry, but the product you are looking for is no longer available. <a href="/products/">Click here to see all our products</a>.</h3>
+	</div>
+
+#end

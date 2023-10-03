@@ -1,0 +1,10 @@
+<div
+    #if ($EDIT_MODE) 
+        data-language="${CONTENT_LANGUAGE}"
+        data-mode="full"
+        data-inode="${ContentInode}"
+        data-field-name="body"      
+    #end
+>
+    $!{body}
+</div>

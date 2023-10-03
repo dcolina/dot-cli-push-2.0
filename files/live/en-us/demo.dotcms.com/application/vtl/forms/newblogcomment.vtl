@@ -1,0 +1,48 @@
+<script type="text/javascript" >
+     
+    $(document).ready(function() {
+     
+    $("#webup").submit(function(e) {
+    e.preventDefault();
+   
+      var dataObj= {
+      'title': 'Re: $!{URLMapContent.title}',
+      'body': $('#body').val(),
+      'contentHost': 'demo.dotcms.com',
+      'contentType': 'BlogComment',
+      'blog': '$!{URLMapContent.identifier}',
+      'postDate':'$!{today}',
+      'commentAuthor': '$!{commenter.identifier}'
+      };
+     console.log(dataObj);
+      $.ajax({
+          url: '/api/content/Publish/1',
+          type: 'POST',
+          cache: false,
+          data: dataObj,
+          beforeSend: function (request){
+          // This sends the user who authenticates against the dotCMS server
+          // In a real world example, you could use session based authentication
+          request.setRequestHeader("DOTAUTH", window.btoa("admin@dotcms.com:admin"));
+        },
+   
+        success: function(data,status,xhr) {
+          window.location = "/blog/post/$!{URLMapContent.urlTitle}";
+        },
+        error: function(data,status,xhr) {
+          alert("fail: " + data);
+          console.log(data);
+        },
+          });
+      });
+    });
+</script>
+     
+<form id="webup">
+  <div class="form-group">
+    <textarea id="body" name="body" class="comment-form" placeholder="Type a comment about this blog. Your feedback is appreciated."></textarea>
+  </div>
+  <div class="form-group">
+    <input type="submit" value="Send" />
+  </div>
+</form>

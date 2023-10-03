@@ -1,0 +1,76 @@
+.banner {
+    height: 43vh !important;
+    position: relative;
+    min-height: 300px;
+    @include media-breakpoint-up(lg) {
+        min-height: 450px;
+    }
+    @include media-breakpoint-down(sm) {
+        height: 60vh !important;
+    }
+    .container {
+        height: 100%;
+        .row {
+            align-items: center;
+            height: 100%;
+        }
+    }
+}
+
+.banner-tall .banner {
+    height: 55vh !important;
+}
+
+.banner-title {
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: 0;
+    font-family: "Oswald",cursive;
+    text-transform: uppercase;
+    min-height: 100px;
+    @include media-breakpoint-up(lg) {
+        font-size: 125px;
+        letter-spacing: .02em;
+    }
+    @include media-breakpoint-up(md) {
+        font-size: 70px;
+        margin-bottom: 20px; 
+    }
+}
+
+.bg-white-60 {
+    background-color: rgba(255, 255, 255, 0.6);
+    .banner-title, .text-decoration-lines-2 {
+        color: $gray-800;
+    }
+    .text-decoration-line {
+        background-color: $gray-800;
+    }
+}
+
+.bg-black-60 {
+    background-color: rgba(0, 0, 0, 0.6);
+    .banner-title, .text-decoration-lines-2 {
+        color: #fff;
+    }
+    .text-decoration-line {
+        background-color: #fff;
+    }
+}
+
+.banner-3 {
+    background-color: $primary-dark;
+	position: relative;
+	width: 100vw;
+	margin-left: -50vw;
+	left: 50%;
+    background-position: right center;
+    background-size: 0 0;
+    background-repeat: no-repeat;
+    .container {
+		position: relative;
+    }
+    @include media-breakpoint-up(lg) {
+        background-size: 50% auto;
+    }
+}

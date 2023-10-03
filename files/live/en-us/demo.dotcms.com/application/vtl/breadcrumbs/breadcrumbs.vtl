@@ -1,0 +1,21 @@
+<!-- VTL File: /application/vtl/breadcrumbs/breadcrumbs.vtl -->
+
+#if($UtilMethods.isSet($dotPageContent.productLine))
+    #foreach($productType in $dotPageContent.productLine)
+        <div class="breadcrumbs-custom" style="background-image: url('/dA/$productType.identifier/banner/50q/1200w/breadcrumbs.jpg');">
+    #end
+#elseif($UtilMethods.isSet($dotPageContent.image))
+    <div class="breadcrumbs-custom" style="background-image: url(/dA/$dotPageContent.identifier/image/50q/1200w/breadcrumbs.jpg);">
+#else
+    <div class="breadcrumbs-custom" style="background-image: url(/images/pages/bg-breadcrumbs.jpg);">
+#end
+    <div class="container">
+        <h2 class="breadcrumbs-custom-subtitle">$!{dotPageContent.subtitle}</h2>
+        <h1 class="breadcrumbs-custom-title text-decoration-lines"><span>$!{dotPageContent.title}</span></h1>
+        <ul class="breadcrumbs-custom-path">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Pages</a></li>
+            <li class="active">Single service</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<!-- VTL File: /application/vtl/events/recommended-events.vtl -->
+
+<div class="recommended-events">
+    <h2 class="text-center">$widgetTitle</h2>
+    <div class="row row-40 justify-content-center justify-content-md-start">
+    #foreach($con in $dotcontent.pullPersonalized("-contentType:forms +contentType:calendarEvent +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST)",3,"calendarEvent.startDate"))
+        <div class="col-8 col-md-6 col-lg-4">
+            <div class="post post-classic">
+                <a class="post-img-wrap" href="/events/$con.urlTitle">
+                    <img class="post-img" src="/dA/$!con.identifier/image/370w/50q/$!{con.image.name}" alt="$con.title">
+                </a>
+                <h3 class="post-title"><a href="/events/$con.urlTitle">$con.title</a> #editContentlet($con.inode)</h3>
+                #set($x = $UtilMethods.prettyShortenString("$con.description", 120))
+                #set($x = $x.replaceAll("</?[^>]+/?>", ""))
+                <p class="post-text">$x</p>
+                <time class="post-classic-time" datetime="$date.format('yyyy-MM-dd h:mm a', ${con.startDate})">
+                    <span class="heading-1">$date.format('dd', ${con.startDate})</span>
+                    $date.format('MMMM', ${con.startDate})
+                </time>
+            </div>
+        </div>
+    #end
+    </div>
+    <div class="row row-40 justify-content-center justify-content-lg-start">
+        <div class="text-center text-lg-left col-8 col-lg-12">
+            <a class="button button-primary button-leaf" href="/events/">View all events</a>
+        </div>
+    </div>
+</div>

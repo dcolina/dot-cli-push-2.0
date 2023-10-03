@@ -1,0 +1,25 @@
+{
+      "body":{
+         "rows":[
+            {
+               "styleClass":"",
+               "columns":[
+                  {
+                     "styleClass":"",
+                     "leftOffset":1,
+                     "width":12,
+                     "containers":[
+                        {
+                           "identifier":"//demo.dotcms.com/application/containers/banner/",
+                           "uuid":"1"
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      "header":true,
+      "footer":true,
+      "sidebar":null
+}

@@ -1,0 +1,27 @@
+#if($user)
+  #set($commenterIdentifier = "$!{user.userId}")
+#else
+  #set($commenterIdentifier = "07bc6ba2-0698-4cc0-b648-d195f9f3b2eb")
+#end
+
+
+
+<div class="row mt-5 pt-5">
+  <div class="col-lg-12">
+    <h2 id="comments" class="mb-2">Leave a Comment</h2>
+
+    <form id="webup">
+      <input type="hidden" id="blogTitle" name="blogTitle" value="$!{URLMapContent.title}">
+      <input type="hidden" id="blogId" name="blogId" value="$!{URLMapContent.identifier}">
+      <input type="hidden" id="commenterId" name="commenterId" value="$!{commenterIdentifier}">
+      <input type="hidden" id="todayDateTime" name="today" value="$today">
+      <input type="hidden" id="returnUrl" name="returnUrl" value="/blog/post/$!{URLMapContent.urlTitle}#comments">
+      <div class="form-wrap">
+        <label class="form-label rd-input-label sr-only" for="contact-message">Message</label>
+        <textarea class="form-input form-control-has-validation form-control-last-child" id="commentBody" name="commentBody" placeholder="Type a comment about this blog. Your feedback is appreciated"></textarea>
+      </div> 
+      <input type="submit" class="button button-primary" value="Submit">
+    </form>
+    
+  </div>
+</div>

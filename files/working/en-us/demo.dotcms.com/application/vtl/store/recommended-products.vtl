@@ -1,0 +1,27 @@
+<!-- VTL File: /application/vtl/store/recommended-products.vtl -->
+
+<h2 class="text-center">$widgetTitle</h2>
+<div class="row row-50 row-lg-80">
+    #foreach($con in $dotcontent.pullPersonalized("-contentType:forms +contentType:Product +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST)",4,"modDate desc"))
+    <div class="col-6 col-lg-4 col-xl-3">
+        <div class="box-product box-product-classic">
+            
+            <div class="box-product-body">
+                <a href="/store/products/$con.urlTitle"><img class="box-product-img" src="/dA/$con.identifier/image/280h/50q/$!{con.image.name}" alt="$con.title"></a>
+            </div>
+            #editContentlet($con.inode)
+            <p class="box-product-name"><a href="/store/products/$con.urlTitle">$con.title</a></p>
+            <div class="box-product-prices">
+                #if($UtilMethods.isSet($con.salePrice))
+                    <span class="current-price sale-price">$!{con.salePrice}</span>
+                    <span class="original-price">$!{con.retailPrice}</span>
+                #else
+                    <span class="current-price">$!{con.retailPrice}</span>
+                #end
+            </div>
+            <a class="button button-primary button-leaf" href="/store/products/$con.urlTitle">View details</a>
+            
+        </div>
+    </div>
+    #end
+</div>

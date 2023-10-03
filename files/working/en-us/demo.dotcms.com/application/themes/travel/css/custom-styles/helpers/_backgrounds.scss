@@ -1,0 +1,180 @@
+/*
+*
+* Backgrounds
+*/
+
+.context-dark {
+	@extend %context-dark;
+}
+
+%context-dark {
+	@include context-dark;
+	
+	// Logo
+	.brand {
+		.brand-logo-dark {
+			display: none;
+		}
+		.brand-logo-light {
+			display: block;
+		}
+		// Large <991px
+		@include media-breakpoint-down(md) {
+			.brand-logo-dark {
+				display: block;
+			}
+			.brand-logo-light {
+				display: none;
+			}
+		}
+	}
+	
+	.rd-navbar-transparent {
+		&.rd-navbar-fixed {
+			.brand-logo-dark {
+				display: block;
+			}
+			.brand-logo-light {
+				display: none;
+			}
+		}
+	}
+}
+
+%context-light {
+	@include context-light;
+	
+	// Logo
+	.brand {
+		.brand-logo-dark {
+			display: block;
+		}
+		.brand-logo-light {
+			display: none;
+		}
+	}
+}
+
+/**
+* Light Backgrounds
+*/
+.bg-default {
+	@include bg-behaviour($body-bg);
+}
+
+.bg-white {
+	@include bg-behaviour($white);
+}
+
+.bg-gray-100 {
+	@include bg-behaviour($gray-100);
+}
+
+/**
+* Dark Backgrounds
+*/
+.bg-gray-dark {
+	@extend %context-dark;
+	@include bg-behaviour($gray-700);
+}
+
+/**
+* Accent Backgrounds
+*/
+.bg-primary {
+	background-color: $primary;
+	@extend %context-dark;
+	& + & {
+		padding-top: 0;
+	}
+}
+
+
+// Desktop only
+//
+html:not(.tablet):not(.mobile) {
+	.bg-fixed {
+		@include media-breakpoint-up(lg) {
+			background-attachment: fixed;
+		}
+	}
+}
+
+// Background overlay
+
+[class*='bg-overlay-'] {
+	position: relative;
+	h1, h2, p {
+		color: #fff;
+	}
+	&::before {
+		position: absolute;
+		content: '';
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		pointer-events: none;
+	}
+	
+	.section-single-inner,
+	.container {
+		position: relative;
+	}
+}
+
+.bg-overlay-90 {
+	&::before {
+		background-image: linear-gradient(to bottom right, #370700, #000337);
+		opacity: .9;
+	}
+}
+
+.bg-overlay-80 {
+	&::before {
+		background-image: linear-gradient(to bottom right, #370700, #000337);
+		opacity: .8;
+	}
+}
+
+.bg-overlay-60 {
+	&::before {
+		background-image: linear-gradient(to bottom right, #370700, #000337);
+		opacity: .6;
+	}
+}
+
+.bg-overlay-50 {
+	&::before {
+		background-image: linear-gradient(to bottom right, #370700, #000337);
+		opacity: .5;
+	}
+}
+
+.bg-overlay-40 {
+	&::before {
+		background-image: linear-gradient(to bottom right, #370700, #000337);
+		opacity: .4;
+	}
+}
+
+.bg-overlay-30 {
+	&::before {
+		background-image: linear-gradient(to bottom right, #370700, #000337);
+		opacity: .3;
+	}
+}
+
+.bg-overlay-20 {
+	&::before {
+		background-image: linear-gradient(to bottom right, #370700, #000337);
+		opacity: .2;
+	}
+}
+
+.bg-overlay-15 {
+	&::before {
+		background-image: linear-gradient(to bottom right, #370700, #000337);
+		opacity: .15;
+	}
+}

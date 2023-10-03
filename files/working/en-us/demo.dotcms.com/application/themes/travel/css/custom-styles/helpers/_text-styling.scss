@@ -1,0 +1,128 @@
+/*
+*
+* Text styling
+*/
+
+// Text styles
+.text-italic {
+  font-style: italic;
+}
+
+.text-normal {
+  font-style: normal;
+}
+
+// Text decoration
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-strike {
+  text-decoration: line-through;
+}
+
+// Text weight
+.font-weight-thin {
+  font-weight: 100;
+}
+
+.font-weight-light {
+  font-weight: 300;
+}
+
+.font-weight-regular {
+  font-weight: 400;
+}
+
+.font-weight-medium {
+  font-weight: 500;
+}
+
+.font-weight-sbold {
+  font-weight: 700;
+}
+
+.font-weight-ubold {
+  font-weight: 900;
+}
+
+// Text spacing
+.text-spacing-0 {
+  letter-spacing: 0;
+}
+
+.text-primary { color: $primary }
+.text-gray-200 { color: $gray-200; }
+.text-gray-400 { color: $gray-400; }
+.text-gray-600 { color: $gray-600; }
+
+.text-elements {
+  > * {
+    display: inline-block;
+  }
+
+  br + * {
+    margin-top: 10px;
+  }
+}
+
+// Text width
+
+[class*='text-width-'] {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-width-medium { max-width: 535px }
+
+.text-width-large { max-width: 650px }
+
+
+.max-width-xl-90 { 
+  // Extra large ≥1200px
+  @include media-breakpoint-up(xl) {
+    max-width: 90%;
+  } 
+}
+
+// Sub, Sup
+sub, sup {
+  font-size: 65%;
+}
+
+// Text Columns
+.text-2-col, .text-3-col {
+  column-count: 1;
+  column-gap: 0px;
+}
+
+@include media-breakpoint-up(md) {
+  .text-2-col {
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    column-count: 2;
+    -webkit-column-gap: 40px;
+    -moz-column-gap: 40px;
+    column-gap: 40px;
+    h2, hr {
+        -webkit-column-span: all;
+        column-span: all;
+        margin-bottom: 15px;
+    }
+    p {
+      margin-top: 0px;
+    }
+  }
+  .text-3-col {
+    -webkit-columns: 3;
+    -moz-columns: 3;
+    column-count: 3;
+    -webkit-column-gap: 40px;
+    -moz-column-gap: 40px;
+    column-gap: 40px;
+    h2, hr {
+      -webkit-column-span: all;
+      column-span: all;
+    }
+  }
+}

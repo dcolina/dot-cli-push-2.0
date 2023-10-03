@@ -1,0 +1,15 @@
+<!-- Container Code: /application/themes/landing-page/containers/calendarevent.vtl -->
+
+<div class="post post-classic mb-5">
+	<a class="post-img-wrap" href="/events/$urlTitle">
+		<img class="post-img" src="/dA/$!{ContentIdentifier}/image/370w/50q/$!{imageBinaryFileTitle}" alt="$title">
+	</a>
+	<h3 class="post-title"><a href="/events/$urlTitle">$title</a></h3>
+	#set($x = $UtilMethods.prettyShortenString("$description", 120))
+	#set($x = $x.replaceAll("</?[^>]+/?>", ""))
+	<p class="post-text">$x</p>
+	<time class="post-classic-time" datetime="$date.format('yyyy-MM-dd h:mm a', ${startDate})">
+		<span class="heading-1">$date.format('dd', ${startDate})</span>
+		$date.format('MMMM', ${startDate})
+	</time>
+</div>

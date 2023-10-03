@@ -1,0 +1,122 @@
+
+<div class="my-5">
+#if($UtilMethods.isSet($URLMapContent))
+
+    #set($tagName = ${URLMapContent.title.toLowerCase()})
+    $visitor.addTag("$tagName", 10)
+<!--
+    #if($visitor.accruedTags)
+        <div class="tagBox">
+            #foreach($tag in $visitor.accruedTags)
+                $!{tag}<br>
+            #end
+        </div>
+    #else
+        No Tags
+    #end
+-->
+
+    ###############
+    #### INTRO ####
+    ###############
+    <h1 class="text-center">$URLMapContent.title</h1>
+    <p>$URLMapContent.body</p>
+
+    ###############
+    ### PRODUCTS ##
+    ###############
+    <div class="section">
+        <div class="hr-logo"></div>
+        <h2 class="text-center">Products - $tagName</h2>
+        <div class="row">
+        #foreach($product in $dotcontent.pull("-contentType:forms +contentType:Product +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST) +Product.tags:\"$tagName\"",8,"modDate desc"))
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <div class="box-product box-product-modern">
+                    #if($UtilMethods.isSet($product.salePrice))<span class="badge badge-primary">Sale</span>#end
+                    <div class="box-product-body">
+                        <div class="box-product-button">
+                            <a class="button button-sm button-primary" href="/store/cart">Add to cart</a>
+                            <a class="button button-sm button-gray-400" href="/store/products/$product.urlTitle">View details</a>
+                        </div>
+                        <div class="img-wrapper"><img class="box-product-img" src="/dA/${product.identifier}/image1/189h/50q/$!{product.image1.name}" alt="$product.title"></div>
+                    </div>
+                    <p class="box-product-name"><a href="/store/products/$product.urlTitle">$product.title</a></p>
+                    <div class="box-product-prices">
+                        #if($UtilMethods.isSet($product.salePrice))
+                            <span class="current-price sale-price">$!{product.salePrice}</span>
+                            <span class="original-price">$!{product.retailPrice}</span>
+                        #else
+                            <span class="current-price">$!{product.retailPrice}</span>
+                        #end
+                    </div>
+                </div>
+            </div>
+        #end
+        </div>
+    </div>
+
+
+    ###############
+    #### BLOGS ####
+    ###############
+    #set($blogs = $dotcontent.pull("-contentType:forms +contentType:Blog +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST) +Blog.tags:*$tagName* ",4,"Blog.postingDate desc"))
+    #if($blogs.size() > 0)
+    <div class="section">
+        <div class="hr-logo"></div>
+        <h2 class="text-center">blogs</h2>
+        <div class="row">
+        #foreach($blog in $blogs)
+            <div class="col-lg-4 col-md-6">
+                <div class="post post-modern post-height">
+                    <a class="post-img-wrap" href="/blog/post/$blog.urlTitle">
+                        <img class="post-img" src="/dA/${blog.identifier}/image/w/370/50q/$!{blog.imageBinaryFileTitle}" alt="" width="370">
+                    </a>
+                    <div class="post-body">
+                        <div class="post-content">
+                            <h3 class="post-title"><a href="/blog/post/$blog.urlTitle">$blog.title</a></h3>
+                            <p class="post-text">$UtilMethods.prettyShortenString("$blog.teaser", 120)</p>
+                        </div>
+                        <div class="post-bottom-panel">
+                            <div>
+                                <div class="group-xl">
+                                    <div class="post-modern-time">
+                                        <span class="post-icon icon mdi mdi-calendar-clock"></span>
+                                        <time datetime="$date.format('yyyy-MM-dd h:mm a', ${blog.postingDate})">$date.format('MMMM dd, yyyy', ${blog.postingDate})</time>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="badge badge-primary">$tagName</span>
+                    </div>
+                </div>
+            </div>
+        #end
+        </div>
+    </div>
+    #end
+
+
+#else
+
+    <div class="text-center">
+        <h1>Activites</h1>
+        <p>Choose an activity to learn more about it and at what destinations offers these exciting opportunities.</p>
+        <div class="hr-logo"></div>
+    </div>
+    <div class="row">
+
+    #foreach($con in $dotcontent.pull("-contentType:forms +contentType:Activity +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST)",0,"Activity.title"))
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-4">
+            <a class="box-info" href="/activities/$con.urlTitle">
+                <img class="box-info-img" src="/dA/$con.identifier/image/w/270/50q/$con.image.name" alt="$con.title" width="270" height="270">
+                <div class="box-info-body">
+                    <h4 class="box-info-title">$con.title</h4>
+                    <p class="box-info-text">$UtilMethods.prettyShortenString("$con.description", 120)</p>
+                </div>
+            </a>
+        </div>
+    #end
+
+    </div>
+#end
+</div>

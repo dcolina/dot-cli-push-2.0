@@ -1,0 +1,45 @@
+/*
+*
+* Contexts
+*/
+
+@mixin context-dark {
+  /*&
+  #{headings()} {
+    color: $white;
+  }*/
+
+  .rd-form:not(.rd-form-inline) {
+    .form-input {
+      color: $white;
+      background: rgba($white, .1);
+      border-color: rgba($white, .1);
+    }
+
+    .form-validation,
+    .form-label {
+      color: $white;
+    }
+  }
+
+  .button-primary.button-leaf {
+
+    &::before,
+    &::after {
+      background: $primary;
+    }
+
+    &:hover,
+    &:active {
+      color: $white;
+    }
+  }
+}
+
+@mixin context-light {
+  color: $body-color;
+
+  #{headings()}{
+    color: $headings-color;
+  }
+}

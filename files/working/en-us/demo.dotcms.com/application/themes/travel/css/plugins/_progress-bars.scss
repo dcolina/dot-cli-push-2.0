@@ -1,0 +1,52 @@
+/*
+*
+* Progress Bars
+*/
+
+//
+// Linear Progress Bars
+//
+
+.progress-linear {
+  position: relative;
+  text-align: left;
+
+  .progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @include group(10px, 10px);
+
+    font-size: 18px;
+    line-height: 1.67;
+    font-weight: 600;
+    letter-spacing: 0;
+    font-family: $font-family-sec;
+    text-transform: uppercase;
+  }
+
+  .progress-bar-linear-wrap {
+    height: 12px;
+    background: #d9d9e2;
+  }
+
+  .progress-bar-linear {
+    width: 0;
+    height: inherit;
+    background: $primary;
+    transition: .5s all ease-in-out;
+  }
+
+  .progress-value {
+
+    &::after {
+      content: "%";
+    }
+  }
+}
+* + .progress-bar-linear-wrap { margin-top: 6px; }
+.progress-linear + .progress-linear { margin-top: 15px; }
+
+@include media-breakpoint-up(lg) {
+  .progress-linear + .progress-linear { margin-top: 29px; }
+}

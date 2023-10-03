@@ -1,0 +1,148 @@
+#if($request.getAttribute("User-Agent")!="DOTCMS-SITESEARCH")
+<header>
+
+  <!-- RD Navbar-->
+  <div class="rd-navbar-wrap">
+    <nav class="rd-navbar rd-navbar-static rd-navbar-classic" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="78px" data-xl-stick-up-offset="98px" data-xxl-stick-up-offset="118px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+      <div class="rd-navbar-collapse-toggle rd-navbar-fixed-element-1" data-rd-navbar-toggle=".rd-navbar-collapse"><span></span></div>
+      
+      <div class="rd-navbar-aside-outer rd-navbar-collapse bg-default">
+        <div class="rd-navbar-aside">
+
+          <!-- CONTACT INFO -->
+          <ul class="list-inline list-inline-xxl">
+            <li>
+              <div class="unit unit-spacing-xs">
+                <div class="unit-left"><span class="icon mdi mdi-map-marker"></span></div>
+                <div class="unit-body"><a href="#">382 NE 191st St, #92150 Miami, FL, 33179 USA</a></div>
+              </div>
+            </li>
+            <li>
+              <div class="unit unit-spacing-xs">
+                <div class="unit-left"><span class="icon mdi mdi-cellphone-android"></span></div>
+                <div class="unit-body"><a href="tel:+1-305-900-2001">+1-305-900-2001</a></div>
+              </div>
+            </li>
+            <li>
+              <div class="unit unit-spacing-xs">
+                <div class="unit-left"><span class="icon mdi mdi-email-outline"></span></div>
+                <div class="unit-body"><a href="mailto: info@dotcms.com">info@dotcms.com</a></div>
+              </div>
+            </li>
+          </ul>
+
+          <div>
+            <!-- CART -->
+            <a class="basket" href="/store/cart"><span class="icon mdi mdi-cart-outline"></span><span class="basket-count">3</span></a>
+
+            <!-- My Account -->
+            <a href="/login/profile" class="ml-3 dropdown-link" data-toggle="dropdown">
+                #if($UtilMethods.isSet($visitor.persona.photo))
+                    <img src="/dA/${visitor.persona.identifier}/photo/42w/50q/$!{visitor.persona.photo.name}" style="width:42px;" alt="$!{visitor.persona.name} Persona" class="img-circles border">
+                #else
+                    <img src="/html/images/persona/default-persona.png"  style="width:42px;" alt="Default Persona" class="img-circles border">
+                #end
+            </a>
+            <div class="dropdown-menu persona-menu">     
+                <a href="?com.dotmarketing.persona.id=0">
+                    <img src="/html/images/persona/default-persona.png"  style="width:33px;" class="img-circles border mr-2">
+                    Default
+                </a>
+                #foreach($con in $dotcontent.pull("-contentType:forms +contentType:persona +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST)",10,"persona.name"))
+                  <a href="?com.dotmarketing.persona.id=$con.identifier">
+                      #if($UtilMethods.isSet($con.photo))
+                          <img src="/dA/${con.identifier}/photo/33w/50q/$!{con.photo.name}" style="width:33px;" class="img-circles border mr-2">
+                      #else
+                          <img src="/html/images/persona/default-persona.png"  style="width:33px;" class="img-circles border mr-2">
+                      #end
+                      $con.name
+                  </a>
+                #end
+                <a href="/login/profile" class="my-account">Who Am I...?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rd-navbar-main-outer">
+        <div class="rd-navbar-main">
+
+          <div class="rd-navbar-panel">
+            <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap" aria-label="Toggle Menu"><span></span></button>
+            <div class="rd-navbar-brand"><a class="brand" href="/" aria-label="TravelLux Home"><img class="brand-logo-dark" src="${dotTheme.path}images/logo.png" width="195" height="40" alt="TravelLux Home"></a></div>
+          </div>
+
+          <!-- NAV BAR -->
+
+          <div class="rd-navbar-main-element">
+
+            <div class="rd-navbar-nav-wrap">
+            
+            ## ADDS ICON IN EDIT MODE TO REORDER SIDE NAVIGATION ##
+            #if ($EDIT_MODE && $PUBLISH_HTMLPAGE_PERMISSION)
+                #set($_formId="dot_form_menu_$date.date.time")
+                <form class="dotcms__navbar-form" action="${directorURL}" method="post" name="${_formId}" id="${_formId}">
+                    <input type="hidden" name="cmd" value="orderMenu" />
+                    <input type="hidden" name="hostId" value="${host.identifier}" />
+                    <input type="hidden" name="referer" value="${VTLSERVLET_URI}" />
+                    <input type="hidden" name="pagePath" value="${VTLSERVLET_URI}" />
+                    <input type="hidden" name="startLevel" value="1" />
+                    <input type="hidden" name="depth" value="2" />
+                    <a href="javascript:document.getElementById('${_formId}').submit();" class="reorder-menu-link" data-original-title="Reorder Menu">
+                        <i class="arrow-up"></i> 
+                        <i class="arrow-down"></i> 
+                    </a>
+                </form>
+            #end
+
+              <ul class="rd-navbar-nav">
+                <li class="rd-nav-item #if($utilClass == 'home') active #end "><a class="rd-nav-link" href='/'>Home</a></li>
+                #set($list = $navtool.getNav("/"))
+                #foreach($n in $list)
+                  #set($children = $n.children)
+                  #if($children && $children.size() > 0)
+                    <li class="rd-nav-item rd-navbar--has-dropdown rd-navbar-submenu #if($n.active) active #end">
+                      <a href="${n.href}" class="rd-nav-link">${n.title}</a>
+                        <ul class="rd-menu rd-navbar-dropdown">
+                          #foreach($ch in $children)
+                              <li class="rd-dropdown-item">
+                                <a class="rd-dropdown-link" href='${ch.href}' target='${ch.target}'>${ch.title}</a>
+                                #set($gchildren = $ch.children)
+                                #if($gchildren && $gchildren.size() > 0)
+                                  <ul class="rd-menu rd-navbar-dropdown">
+                                    #foreach($gch in $gchildren)
+                                      <li class="rd-dropdown-item"><a class="rd-dropdown-link" href='${gch.href}' target='${gch.target}'>${gch.title}</a></li>
+                                  #end
+                                  </ul>
+                                #end
+                              </li>
+                          #end
+                        </ul>
+                    </li>
+                  #else
+                    <li class="rd-nav-item #if($n.active) active #end"><a class="rd-nav-link" href='${n.href}' target='${n.target}'>${n.title}</a></li>
+                  #end
+                #end
+              </ul>
+            </div>
+
+            <!-- RD Navbar Search-->
+            <div class="rd-navbar-search">
+              <button class="rd-navbar-search-toggle rd-navbar-fixed-element-2" data-rd-navbar-toggle=".rd-navbar-search" aria-label="Search Box Toggle"><span></span></button>
+              <form class="rd-search" action="/search/" method="GET">
+                <div class="form-wrap">
+                  <label class="form-label search-label" for="site-search">Search...</label>
+                  <input class="rd-navbar-search-form-input form-input site-search" type="text" name="q" autocomplete="off">
+                </div>
+                <button class="rd-search-form-submit fa-search" type="submit" aria-label="Submit"></button>
+              </form>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+</header>
+#end

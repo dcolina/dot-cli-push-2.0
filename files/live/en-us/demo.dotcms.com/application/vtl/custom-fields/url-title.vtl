@@ -1,0 +1,81 @@
+<script>
+
+    function slugify (text) {
+      const a ='àáäâćèéëêìíïîòóöôùúüûñçßÿœæŕśšńṕẃǵǹḿǘẍźḧ·/_,:;='
+      const b ='aaaaceeeeiiiioooouuuuncsyoarssnpwgnmuxzh-------'
+      const p = new RegExp(a.split('').join('|'), 'g')
+
+      return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(p, c =>
+            b.charAt(a.indexOf(c)))     // Replace special chars
+        .replace(/&/g, '-and-')         // Replace & with 'and'
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '')             // Trim - from end of text
+    }
+
+	var fieldToSlugOff  = "title";
+    var slugField  = "urlTitle";
+    var slugEdited  = false;
+    var currentVal = "$!urlTitle";
+
+	function updateDisplayURLTitle(){
+
+		// get the title entered by the user
+		var plainTitle = dijit.byId(fieldToSlugOff).getValue();	
+
+		if(plainTitle == null || plainTitle == undefined || plainTitle.length ==0){
+			return;
+		}
+		
+		var newVal = slugify(plainTitle);
+		
+
+
+		document.getElementById("slugSuggestion").style.display="none";
+		if(currentVal == null || currentVal== undefined || currentVal.length ==0 && !slugEdited){
+		    dijit.byId("slugCustomField").setValue(newVal);
+		    document.getElementById(slugField).value=newVal;
+		}
+		else if(newVal != currentVal){
+			document.getElementById("slugSuggestion").style.display="";
+
+			let htmlTemplate = `<i>suggestion</i> : <a href="javascript:useSlugSuggestion('$newVal')">$newVal</a>`;
+			htmlTemplate = htmlTemplate.replace("$newVal", newVal).replace("$newVal", newVal);
+		    dojo.byId("slugSuggestion").innerHTML = htmlTemplate;
+		}
+	}
+
+
+	// attach this the text1 field onchange
+	dojo.addOnLoad(function(fieldToSlugOff){
+			dojo.connect(dojo.byId(fieldToSlugOff), "onkeyup", null, "updateDisplayURLTitle")
+ 			// for debugging - document.getElementById(slugField).type ="text";
+		}
+	);
+
+
+    function updateUrlMap(){
+        slugEdited=true;
+        document.getElementById(slugField).value=dijit.byId("slugCustomField").getValue();
+        emmitFieldDataChange(true);
+        
+    }
+
+function useSlugSuggestion(slugSuggeston){
+		document.getElementById("slugSuggestion").style.display="none";
+
+		if(slugSuggeston != null || slugSuggeston!= undefined || slugSuggeston.length >0 ){
+		    dijit.byId("slugCustomField").setValue(slugSuggeston);
+		    updateUrlMap();
+		}
+
+
+}
+
+
+</script>
+<input type="text" id="slugCustomField" dojoType="dijit.form.TextBox"  value="$!{urlTitle}" onkeyup="updateUrlMap()" style="background:#FAFAFA"/>
+<div id="slugSuggestion"  style="padding-top:10px;padding-left:10px;display:none;"></div>

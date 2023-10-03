@@ -1,0 +1,78 @@
+/**
+*
+* RD Navbar Classic
+* =====================================================
+*/
+.rd-navbar-creative.rd-navbar-static {
+	.rd-navbar-main {
+		padding-top: 60px;
+	}
+}
+.rd-navbar-creative {
+	
+	.rd-navbar-nav-wrap {
+		> .rd-navbar-nav-wrap-right-icon {
+			display: none;
+		}
+	}
+	
+	&.rd-navbar-fixed {
+		.rd-navbar-main-element {
+			> .rd-navbar-nav-wrap-right-icon {
+				display: none;
+			}
+		}
+		.rd-navbar-nav-wrap {
+			> .rd-navbar-nav-wrap-right-icon {
+				display: flex;
+				margin-left: 15px;
+			}
+		}
+	}
+	
+	.rd-navbar-main {
+		flex-direction: column;
+	}
+	.rd-navbar-main-element {
+		margin-top: 35px;
+	}
+	
+	.rd-navbar-aside {
+		.list-social {
+			margin-top: 0;
+			padding: 10px 0;
+		}
+	}
+	
+	.rd-navbar-nav-wrap-right-icon {
+		display: flex;
+		margin-left: 140px;
+		> * + * {
+			margin-left: 30px;
+		}
+		a {
+			color: $gray-800;
+			&:hover {
+				color: $primary;
+			}
+		}
+		.icon {
+			display: inline-block;
+			position: relative;
+			width: 32px;
+			height: 32px;
+			font-size: 28px;
+			line-height: 32px;
+			text-align: center;
+			cursor: pointer;
+			background: none;
+			border: none;
+			outline: none;
+			padding: 0;
+		}
+		.basket-count {
+			display: flex;
+			align-items: center;
+		}
+	}
+}

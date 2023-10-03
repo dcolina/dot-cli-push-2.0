@@ -1,0 +1,72 @@
+<!-- Page Footer-->
+#if($request.getAttribute("User-Agent")!="DOTCMS-SITESEARCH")
+
+#set($urlSting = $request.getAttribute("javax.servlet.forward.request_uri"))
+
+#if($UtilMethods.isSet($dotPageContent.image) && $urlSting.contains("store") != true)
+  #set($bgImage = "/dA/" + $dotPageContent.identifier + "/image/50q/1200w/footer-image.jpg")
+#else
+  #set($bgImage = "/dA/716dcfa9-537d-419a-837f-73084a499cf3/fileAsset/1200w/50q/bg-footer.jpg")
+#end
+
+
+<footer class="footer-classic bg-footer bg-overlay-80 context-dark" style="background-image: url('$bgImage')" >
+  <div class="section-xxl">
+    <div class="container">
+      <div class="row row-50 justify-content-center">
+        <div class="col-lg-4">
+          <h2>About us</h2>
+          <p class="max-width-xl-90 text-gray-400">We are TravelLux, a community of dedicated travel experts, journalists, and bloggers. Our aim is to offer you the best insight on where to go for your travel as well as to give you amazing opportunities with free benefits and bonuses for registered clients.</p>
+          <a class="footer-brand" href="./"><img src="${dotTheme.path}images/logo-inverse.png" alt="TravelLux Home" height="40"/></a>
+        </div>
+
+
+        <div class="col-sm-8 col-md-6 col-lg-4">
+          <h2>Latest blog posts</h2>
+          
+          <!-- Latest Blogs -->
+          #foreach($blog in $dotcontent.pull("+contentType:Blog +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST)",3,"Blog.postingDate desc"))
+            <div class="unit unit-spacing-lg">
+              <div class="unit-left"><a href="/blog/post/$!{blog.urlTitle}"><img src="/dA/$blog.identifier/image/70w/$blog.image.name" alt="$!{blog.title}" width="70" height="70"></a></div>
+              <div class="unit-body">
+                <h6><a href="/blog/post/$!{blog.urlTitle}">$blog.title</a></h6>
+                <time datetime="$date.format('yyyy-MM-dd h:mm a', ${blog.postingDate})">$date.format('MMMM dd, yyyy', ${blog.postingDate})</time>
+              </div>
+            </div>
+          #end
+          
+        </div>
+        <div class="col-sm-8 col-md-6 col-lg-4">
+          <h2>Get in touch</h2>
+          <form class="rd-form form-sm rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="">
+            <div class="form-wrap">
+              <input class="form-input" id="footer-form-name" type="text" name="name" data-constraints="@Required">
+              <label class="form-label" for="footer-form-name">Name</label>
+            </div>
+            <div class="form-wrap">
+              <input class="form-input" id="footer-form-email" type="email" name="email" data-constraints="@Email @Required">
+              <label class="form-label" for="footer-form-email">E-mail</label>
+            </div>
+            <div class="form-wrap">
+              <label class="form-label" for="footer-form-message">Message</label>
+              <textarea class="form-input" id="footer-form-message" name="message" data-constraints="@Required"></textarea>
+            </div>
+            <div class="form-wrap">
+              <button class="button button-md button-primary" type="submit">Send</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <!-- Rights-->
+    <p class="rights mb-0"><span>©2012 - $!{date.format('yyyy',$UtilMethods.getCurrentDate())} All Rights Reserved</span> <a href="https://dotcms.com/company/policies/privacy-policy">Terms of Use</a> <span>and</span> <a href="https://dotcms.com/company/policies/privacy-policy">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<!-- Javascript-->
+<script src="${dotTheme.path}js/core.min.js"></script>
+<script src="${dotTheme.path}js/script.js"></script>
+
+#end

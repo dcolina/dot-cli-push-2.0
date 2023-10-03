@@ -1,0 +1,168 @@
+#set($clickstream  = $session.getAttribute("clickstream"))
+
+#set($geolocationFromSession = $session.getAttribute("geolocation"))
+#if(!$UtilMethods.isSet($geolocationFromSession))
+	#set($locationURL = "http://www.geoplugin.net/json.gp?ip=$request.getRemoteAddr()")
+	#set($geolocation = $json.fetch("$!locationURL"))
+	$session.setAttribute("geolocation", $geolocation)
+#else
+	#set($geolocation = $session.getAttribute("geolocation"))
+#end
+
+
+<div class="row my-5">
+    <div class="col-md-4 text-center">
+        #if($UtilMethods.isSet($visitor.persona.photo))
+            <img src="/dA/${visitor.persona.identifier}/photo/200w/50q/$!{visitor.persona.photo.name}" class="img-circles border">
+            <div class="mt-3"><a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changePersona">Change Persona</a></div>
+        #else
+            <img src="/html/images/persona/default-persona.png"  style="width:200px;" class="img-circles border">
+            <div class="mt-3"><a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changePersona">Set Persona</a></div>
+        #end
+    </div>
+
+    <div class="col-md-8">
+        <div>
+            #if($visitor.persona)
+                <div class="group-sm">
+                    <h2>Current Persona: $!{visitor.persona.name} <span class="icon mdi mdi-checkbox-marked-circle primary"></span></h2>
+                </div>
+                <p>$!{visitor.persona.description}</p>
+            #else
+                <div class="group-sm">
+                    <h2>Default Persona</h2>
+                </div>
+                <p>You have not been assigned a persona yet. dotCMS is still learning about you. Please check back after you browse more of your site.</p>
+            #end
+        </div>
+            
+
+        <div class="pb-5">
+
+            <h3 class="mb-4">Persona Weighting</h3>
+            <script>
+                window.onload = function() {
+                    #foreach($p in $visitor.weightedPersonas.entrySet())
+                        document.getElementById("${p.key}-bar").style.width = "$math.toInteger($math.mul($p.value,100))%";
+                        document.getElementById("${p.key}-num").innerHTML  = "$math.toInteger($math.mul($p.value,100))"; 
+                    #end
+                }
+            </script>
+
+            #foreach($persona in $personatool.personas)
+                #set($keyId = $persona.name.replace(" ", ""))
+                <article class="progress-linear">
+                    <div class="progress-header">
+                        <p>$persona.name #if($persona.name == $visitor.persona.name) <span class="icon mdi mdi-checkbox-marked-circle primary"></span> #end</p>
+                        <span class="progress-value" id="${keyId}-num">0</span>
+                    </div>
+                    <div class="progress-bar-linear-wrap"><div class="progress-bar-linear" id="${keyId}-bar"></div></div>
+                </article>
+            #end
+        </div>
+        
+
+        <div class="pb-5">
+            <div class="row">
+                <div class="col-4">
+                    <article class="box-minimal px-1">
+                        #if($visitor.device == "MOBILE")
+                            <div class="box-minimal-icon mdi mdi-cellphone-iphone"></div>
+                        #elseif($visitor.device == "COMPUTER")
+                            <div class="box-minimal-icon mdi mdi-monitor"></div>
+                        #else
+                            <div class="box-minimal-icon mdi mdi-tablet-ipad"></div>
+                        #end
+                        <h4 class="box-minimal-title">Device</h4>
+                        <div class="box-minimal-text">The device you are currenlty browsing on is a <b class="text-lowercase">$!{visitor.device}</b> and  <b class="text-uppercase d-inline-block">$!{visitor.selectedLanguage}</b> is your selected language.</div>
+                    </article>
+                </div>
+                <div class="col-4">
+                    <article class="box-minimal px-1">
+                        #if($visitor.userAgent.browser.toString().contains("CHROME"))
+                        <div class="box-minimal-icon mdi mdi-google-chrome"></div>
+                        #elseif($visitor.userAgent.browser == "EDGE")
+                        <div class="box-minimal-icon mdi mdi-internet-explorer"></div>
+                        #elseif($visitor.userAgent.browser.toString().contains("FIREFOX"))
+                        <div class="box-minimal-icon mdi mdi-firefox"></div>
+                        #elseif($visitor.userAgent.browser.toString().contains("OPERA"))
+                        <div class="box-minimal-icon mdi mdi-opera"></div>
+                        #elseif($visitor.userAgent.browser.toString().contains("SAFARI"))
+                        <div class="box-minimal-icon mdi mdi-apple-safari"></div>
+                        #else
+                        <div class="box-minimal-icon mdi mdi-internet-explorer"></div>
+                        #end
+
+                        <h4 class="box-minimal-title">Browser</h4>
+                        <div class="box-minimal-text">The brower you are currently using is <b class="text-capitalize">$!{visitor.userAgent.browser}</b> version <b>$!{visitor.userAgent.browserVersion}</b>.</div>
+                    </article>
+                </div>
+                <div class="col-4">
+                    <article class="box-minimal px-1">
+                        <div class="box-minimal-icon mdi mdi-account-circle"></div>
+                        #if($visitor.newVisitor == false)
+                            <h4 class="box-minimal-title">Returning Visitor</h4>
+                            <div class="box-minimal-text">Welcome back! We see that you have visited our site before.</div>
+                        #else
+                            <h4 class="box-minimal-title">New Visitor</h4>
+                            <div class="box-minimal-text">Welcome to TravelLux we thank you for visiting and hope you come back often.</div>
+                        #end
+                    </article>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-5">
+            <h2><span class="mdi mdi-tag"></span> Tags / Weight</h2>
+            <ul class="tagcloud">
+            #if($visitor.accruedTags)
+                #foreach($tag in $visitor.accruedTags)
+                    <li>$!{tag.tag} <span>$!{tag.count}</span></li>
+                #end
+            #else
+                You have no tags assign to your profile at this time.
+            #end
+            </ul>
+        </div>
+
+        <div class="map pb-5">
+            <h2><span class="mdi mdi-map-marker"></span> Location</h2>
+            <p>Your IP address says you are currenlty located in <b>$geolocation.geoplugin_city, $geolocation.geoplugin_regionName</b> in the <b>$geolocation.geoplugin_countryCode</b>.</p>
+            <iframe style="width: 100%;" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13258.49036578794!2d${geolocation.geoplugin_longitude}!3d${geolocation.geoplugin_latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1569002106238!5m2!1sen!2sus" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog" id="changePersona">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select Persona</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="persona-selector">
+                    <div class="row d-flex">
+                        <a class="d-block text-center mx-3" href="?com.dotmarketing.persona.id=0">
+                            <img src="/html/images/persona/default-persona.png"  style="width:75px;" class="img-circles border">
+                            <h5>Default</h5>
+                        </a>
+                        #foreach($con in $dotcontent.pull("-contentType:forms +contentType:persona +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST)",10,"persona.name"))
+                            <a class="d-block text-center mx-3" href="?com.dotmarketing.persona.id=$con.identifier">
+                                #if($UtilMethods.isSet($con.photo))
+                                    <img src="/dA/${con.identifier}/photo/75w/50q/$!{con.photo.name}" class="img-circles border">
+                                #else
+                                    <img src="/html/images/persona/default-persona.png"  style="width:75px;" class="img-circles border">
+                                #end
+                                <h5>$con.name</h5>
+                            </a>
+                        #end
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<!-- VTL File: /application/vtl/events/event-detail.vtl -->
+
+#if($UtilMethods.isSet($URLMapContent))
+    <div class="mt-5">
+        <h1 class="mb-3">$URLMapContent.title</h1>
+    </div>
+    <div class="row mt-0 justify-content-between">
+        <div class="col-lg-5 order-lg-last">
+            <img src="/dA/$URLMapContent.identifier/460w/50q/$URLMapContent.image.name" alt="$URLMapContent.title">
+        </div>
+
+        <div class="col-lg-6">
+            <!-- DATE and TIME -->
+            <h4 class="mb-3">
+                <span class="post-icon icon mdi mdi-calendar-clock"></span>
+                <time class="mb-2"datetime="$date.format('yyyy-MM-dd hh:mm a', $URLMapContent.startDate)">$date.format('MMM dd, yyyy', $URLMapContent.startDate)</time>
+            </h4>
+
+            <!-- DESCRIPTION -->
+            $URLMapContent.description
+
+            <!-- LOCATIONS -->
+            <h4 class="mb-2">Location(s)</h4>
+            <ul>
+            #foreach($location in $URLMapContent.location)
+                <li><a href="$location.url">$location.title</a></li>
+            #end
+            </ul>
+        </div>   
+    </div>
+#else
+    <h2>No Event Found. Please checkout <a href="/events/">all of our events</a>.</h2>
+#end

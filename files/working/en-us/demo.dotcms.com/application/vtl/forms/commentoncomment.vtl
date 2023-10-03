@@ -1,0 +1,60 @@
+<script type="text/javascript" >
+     
+    $(document).ready(function() {
+
+    $("#comments$!{velocityCount}").emojioneArea({
+          container: "#container$!{velocityCount}",
+          hideSource: false,
+        });
+     
+    $("#reply$!{velocityCount}").submit(function(e) {
+    e.preventDefault();
+   
+      var dataObj= {
+      'title': 'Reply: $!{commentAuthor}',
+      'body': $('#comments$!{velocityCount}').val(),
+      'contentHost': 'demo.dotcms.com',
+      'contentType': 'BlogComment',
+      'postDate':'$!{today}',
+      'reply': '$!{blogComment.identifier}',
+       'commentAuthor': '$!{commenter.identifier}'
+      };
+     console.log(dataObj);
+      $.ajax({
+          url: '/api/content/Publish/1',
+          type: 'POST',
+          cache: false,
+          data: dataObj,
+          beforeSend: function (request){
+          // This sends the user who authenticates against the dotCMS server
+          // In a real world example, you could use session based authentication
+          request.setRequestHeader("DOTAUTH", window.btoa("admin@dotcms.com:admin"));
+        },
+   
+        success: function(data,status,xhr) {
+          window.location = "/blog/post/$!{URLMapContent.urlTitle}";
+        },
+        error: function(data,status,xhr) {
+          alert("fail: " + data);
+          console.log(data);
+        },
+          });
+      });
+    });
+</script>
+     
+<form id="reply$!{velocityCount}">
+
+    <div class="form-group">
+		  <textarea id="comments$!{velocityCount}" style="display:none;"></textarea>
+    </div>
+
+    <div style="max-width: 500px;">
+        <div id="container$!{velocityCount}"></div>
+    </div>
+
+    <div class="form-group mt-2">
+      <input type="submit" value="Reply" />
+    </div>
+     
+</form>

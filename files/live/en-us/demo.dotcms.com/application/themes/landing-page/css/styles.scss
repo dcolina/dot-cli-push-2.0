@@ -1,0 +1,30 @@
+// Vendors
+@import "../../travel/css/plugins/bootstrap-4.0.0/bootstrap";
+
+// Fonts
+@import "fonts/fonts";
+
+// Mixins & Variables
+@import "custom/mixins";
+@import "custom/variables";
+
+// Custom
+@import "custom/grids";
+@import "custom/base";
+@import "custom/type";
+@import "custom/banner";
+@import "custom/lists";
+@import "custom/buttons";
+@import "custom/backgrounds";
+@import "custom/images";
+@import "custom/video";
+@import "custom/forms";
+@import "custom/cards";
+@import "custom/carousel";
+@import "custom/thumbnails";
+@import "custom/icons";
+@import "custom/ui-to-top";
+
+// Plugins
+@import "plugins/lightgallery";
+@import "plugins/magnific-popup";

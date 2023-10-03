@@ -1,0 +1,44 @@
+<div class="row">
+#foreach($con in $dotcontent.pull("+contentType:Destination +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST)",10,"Destination.title"))
+    <div class="col-md-6 col-lg-4 mb-5">
+        <div class="post post-modern post-height">
+            <a class="post-img-wrap" href="$con.url"><img class="post-img" src="/dA/$con.identifier/image/300h/50q/$con.image.name" alt="$!{con.image.description}" height="300"></a>
+            <div class="post-body">
+                <div class="post-content">
+                    <h3 class="post-title"><a href="$con.url"
+                        #if ($EDIT_MODE) 
+                            data-language="${CONTENT_LANGUAGE}"
+                            data-mode="minimal"
+                            data-inode="${con.inode}"
+                            data-field-name="title"
+                        #end
+                    >$!{con.title}</a></h3>
+                    <p class="post-text"
+                    #if ($EDIT_MODE) 
+                        data-language="${CONTENT_LANGUAGE}"
+                        data-mode="minimal"
+                        data-inode="${con.inode}"
+                        data-field-name="description"      
+                    #end
+                    >$UtilMethods.prettyShortenString("$con.shortDescription", 120)</p>
+                </div>
+                <div class="post-bottom-panel">
+                    <div>
+                        <div class="group-xl">
+                            <div class="post-modern-time">
+                                #if($con.activities.size() > 0)
+                                    <b class="d-block">Activites:</b>
+                                    #foreach($activity in $con.activities)
+                                        <a href="/activities/$activity.urlTitle" class="text-capitalize">${activity.title}</a>#if(${velocityCount} < $con.activities.size()), #end
+                                    #end
+                                #end
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="badge badge-primary">$con.type.selectValue</span>
+            </div>
+        </div>
+    </div>
+#end
+</div>

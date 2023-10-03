@@ -1,0 +1,128 @@
+
+#set($returnUrl = $session.getAttribute("REDIRECT_AFTER_LOGIN"))
+#if(!$returnUrl)
+  #set($returnUrl = $!request.getAttribute("javax.servlet.forward.request_uri"))  
+  #set($nonce = $session.setAttribute("REDIRECT_AFTER_LOGIN", $returnUrl))
+#end
+
+
+
+
+<script type="text/javascript" >
+
+  function loginDotCMS(){
+      document.getElementById("messageHolder").display="none";
+      let data = {};
+      data.userId=document.getElementById("userId").value;
+      data.password=document.getElementById("password").value;
+      data.rememberMe=false;
+
+
+      var xhr = new XMLHttpRequest();
+
+
+      xhr.onreadystatechange = function() { 
+        if(this.readyState != XMLHttpRequest.DONE){
+          return;
+        }
+
+        let res = JSON.parse(this.responseText);
+
+        if(this.status === 200) {
+          console.log("login successful")
+          document.getElementById("loginForm").style.display="none";
+          let returnPage = "$returnUrl"  ? "$returnUrl" : "/members/";
+
+
+
+          window.location.href= returnPage + "?r=" + Math.random();
+
+        }else{
+          console.log("login failed")
+          document.getElementById("messageHolder").innerText="Invalid Login"
+          document.getElementById("messageHolder").style.display="block";
+          console.error("Error", this.responseText);
+        }
+
+      }
+
+      xhr.open("POST", "/api/v1/authentication", true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.send(JSON.stringify(data));
+
+  };
+
+ function forgotPassword(){
+     let data = {};
+     data.userId=document.getElementById("userId").value;
+
+     var xhr = new XMLHttpRequest();
+
+     xhr.onreadystatechange = function() {
+
+      if(this.readyState != XMLHttpRequest.DONE){
+        return;
+      }
+
+      let res = JSON.parse(this.responseText);
+      if(this.status === 200) {
+        console.log("email sent successful");
+        document.getElementById("loginForm").style.display="none";
+        let successTemplate = `
+          <h2>Success</h2>
+          <p>An email has been sent. Please check your inbox</p>
+        `;
+        document.getElementById("messageHolder").style.display="block";
+        document.getElementById("messageHolder").innerHTML=successTemplate;
+      }else{
+        console.log("reset password failed")
+        document.getElementById("messageHolder").innerText="Sorry there was an error please contact your website adminstrator"
+        document.getElementById("messageHolder").style.display="block";
+        console.error("Error", this.responseText);
+      }
+    }
+
+    xhr.open("POST", "/api/v1/forgotpassword", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify(data));
+ };
+
+</script>
+
+
+
+
+
+
+
+
+
+<div class="m-5">
+
+  <!-- LOGIN FORM -->
+  <div id="loginForm" class="card p-5" style=" box-shadow: 0 4px 22px -4px rgb(0 0 0 / 17%);">
+    <div class="form-group">
+      <label for="userId" >Email / UserId</label>
+      <input id="userId" class="form-control" name="userId" type="email" value="bill@dotcms.com" placeholder="userId / Email" required />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input id="password" class="form-control" name="password" value="bill@dotcms.com" type="password" placeholder=""/>
+    </div>
+    <div class="row mt-0">
+      <div class="col-6">
+        <div class="form-group form-check">
+          <input type="checkbox" id="rememberMe" name="rememberMe" value="true" class="form-check-input">
+          <label for="rememberMe" class="form-check-label">Remember Me</label>
+        </div>
+      </div>
+      <div class="col-6">
+        <small class="form-text text-right"><a href="#" onclick="forgotPassword()" >Forgot Password</a></small>
+      </div>
+    </div>
+    <button id="loginButton" name="singlebutton" onclick="loginDotCMS()" class="btn btn-primary mt-4">Login</button>
+  </div>
+
+  <div id="messageHolder"></div>
+</div>
+

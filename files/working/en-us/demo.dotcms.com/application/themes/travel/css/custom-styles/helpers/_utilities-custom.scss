@@ -1,0 +1,320 @@
+/*
+*
+* Utilities custom
+*/
+.height-fill {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  > * {
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+}
+
+// Object inline 
+.object-inline {
+  white-space: nowrap;
+  > * {
+    display: inline-block;
+    min-width: 20px;
+    vertical-align: top;
+    white-space: normal;
+  }
+
+  > * + * {  margin-left: 5px; }
+}
+
+.oh {
+  position: relative;
+  overflow: hidden;
+}
+
+// Text decorations
+.text-decoration-lines {
+
+  > span {
+    display: inline-block;
+    position: relative;
+
+    &::before,
+    &::after {
+      position: absolute;
+      display: none;
+      content: '';
+      top: 54%;
+      width: 50px;
+      height: 2px;
+      background: $white;
+      will-change: transform;
+    }
+
+    &::before {
+      left: -70px;
+    }
+
+    &::after {
+      right: -70px;
+    }
+  }
+}
+
+// lines 2
+
+.text-decoration-lines-2 {
+
+  > span {
+    display: inline-block;
+    position: relative;
+  }
+}
+
+.text-decoration-line {
+  position: absolute;
+  display: none;
+  top: 54%;
+  width: 50px;
+  height: 2px;
+  background: $white;
+  will-change: transform;
+}
+
+.text-decoration-line-left {
+  right: calc(100% + 20px);
+}
+
+.text-decoration-line-right {
+  left: calc(100% + 20px);
+}
+
+// lines 3
+
+.text-decoration-lines-3 {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.text-decoration-lines-content {
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    background: $gray-200;
+    top: 50%;
+    width: 100vw;
+  }
+
+  &::before {
+    left: -20px;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  &::after {
+    right: -20px;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+* + .text-decoration-lines-3 { margin-top: 15px; }
+.text-decoration-lines-3 + * { margin-top: 18px; }
+
+// Medium ≥768px
+@include media-breakpoint-up(md) {
+
+  .text-decoration-lines {
+
+    > span {
+      &::before,
+      &::after {
+        display: inline-block;
+      }
+    }
+  }
+
+  .text-decoration-line { display: inline-block; }
+}
+
+// Rights
+p.rights {
+
+  font-size: 14px;
+  color: $body-color;
+
+  a {  
+    color: inherit;
+    
+    &:hover {
+      color: $primary;
+    } 
+  }
+}
+
+%context-dark {
+  p.rights {
+    color: $gray-600;
+
+    a {
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+
+  &.section-single {
+    p.rights {
+      color: $white;
+
+      a {
+
+        &:hover {
+          color: rgba($white, .5);
+        }
+      }
+    }
+  }
+}
+
+// JSColor Workaround
+[style*='z-index: 1000;'] {
+  z-index: $zindex-layout-panel + 1 !important;
+}
+
+.text-block {
+  > * {
+    margin-left: .125em;
+    margin-right: .125em;
+  }
+}
+
+// text letter spacing
+
+.text-spacing-20 {
+  letter-spacing: .02em;
+}
+
+// section transform
+
+.section-transform-top-70 {
+  
+  // Extra large ≥992px
+  @include media-breakpoint-up(lg) {
+    position: relative;
+    z-index: 1;
+
+    &[class*='section-'] {
+      padding-top: 1px;
+    }
+
+    > .container {
+      margin-top: -46px;
+    }
+  }
+
+  // Extra large ≥1200px
+  @include media-breakpoint-up(xl) {
+    > .container {
+      margin-top: -70px;
+    }
+  }
+}
+
+
+// section
+
+.section-relative {
+  position: relative;
+  z-index: 1;
+}
+
+.box-static {
+  position: static;
+}
+
+.container-inset-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.container-sm-fluid {
+  // Medium <768px
+  @include media-breakpoint-down(sm) {
+     max-width: 100%;
+  }
+}
+
+// Extra large ≥1600px
+@include media-breakpoint-up(xl) {
+
+  .container-fluid-2,
+  .container-fluid-3 {
+    padding-left: 30px;
+    padding-right: 30px;
+    max-width: none;
+  }
+}
+
+// Mega large ≥1600px
+@include media-breakpoint-up(xxl) {
+  .container-fluid-2,
+  .container-fluid-3 {
+    padding-left: 75px;
+    padding-right: 75px;
+  }
+}
+
+
+// grid
+
+.row-xs {
+  margin-left: -5px;
+  margin-right: -5px;
+
+  > [class^='col-'] {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+
+// Mega large ≥1600px
+@include media-breakpoint-up(xxl) {
+  .col-xxl-1-5 {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+
+  .col-xxl-2-5 {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+} 
+
+
+// offset
+
+// Extra large ≥1200px
+@include media-breakpoint-up(xl) {
+  .offset-xl-left-1 {
+    margin-right: 6%;
+  }
+}
+
+
+// box width
+
+.box-width-570 {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 570px;
+}

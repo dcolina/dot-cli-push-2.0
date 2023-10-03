@@ -1,0 +1,82 @@
+<!-- VTL File: /application/vtl/blogs/blog-detail.vtl -->
+#if($UtilMethods.isSet($URLMapContent))
+    <div class="section-blog-post">
+
+        <div class="section-blog-post-header">
+            <h1
+                #if ($EDIT_MODE) 
+                    data-language="${CONTENT_LANGUAGE}"
+                    data-mode="minimal"
+                    data-inode="$URLMapContent.inode"
+                    data-field-name="title"      
+                #end
+            >$URLMapContent.title</h1>
+            <div class="post-bottom-panel">
+                <div>
+                    <div class="group-xl">
+                        #if( ${URLMapContent.author.size()} > 0)
+                            #set ($author= ${URLMapContent.author.get(0)})
+                            <div class="post-modern-author">
+                                <span class="post-icon icon mdi mdi-account"></span>
+                                <span>by $!{author.firstName} $!{author.lastName}</span>
+                            </div>
+                        #end
+                        <div class="post-modern-time">
+                            <span class="post-icon icon mdi mdi-calendar-clock"></span>
+                            <time datetime="2018-07-20 12:29">$date.format("MMMM dd, yyyy 'at' hh:mm aa", $!{URLMapContent.postingDate})</time>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-none d-md-block">
+                    <div class="group-xl">
+                        <div class="post-modern-views">
+                            <span class="post-icon icon mdi mdi-eye"></span>
+                            <span>193</span>
+                        </div>
+                        <div class="post-modern-comment">
+                            <span class="post-icon icon mdi mdi-comment"></span>
+                            <a href="#comments">3</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOG IMAGE -->
+        <div class="section-blog-post-figure">
+            <!-- <img class="img-fluid" style="min-width: 100%;" src="/dA/$URLMapContent.identifier/935cw/400ch/50q/$URLMapContent.image.name" alt="$URLMapContent.title"> -->
+            <img class="img-fluid" src="/contentAsset/image/$URLMapContent.identifier/image/filter/Resize,Crop/resize_w/935/crop_w/935/crop_h/400/$URLMapContent.image.name" alt="$URLMapContent.title">
+            <span class="badge badge-primary">$!{URLMapContent.tags.get(0)}</span>
+        </div>
+
+        <!-- BLOG BODY -->
+        <div class="section-blog-post-content"
+            #if ($EDIT_MODE) 
+                data-language="${CONTENT_LANGUAGE}"
+                data-inode="$URLMapContent.inode"
+                data-field-name="blogContent"
+                data-content-type="Blog"
+                data-contentlet-identifier="$URLMapContent.identifier"
+                data-block-editor-content="$esc.html($!{URLMapContent.blogContent.content})"
+            #end >
+            $!{URLMapContent.blogContent.toHtml('/application/vtl/blog/blocks/')}
+        </div>
+
+        <!-- SOCIAL SHARES -->
+        <div class="group-xl text-center">
+            <a class="button button-md button-facebook button-icon button-icon-left button-leaf" href="https://www.facebook.com/dotCMS/"><span class="icon mdi mdi-facebook"></span>Facebook</a>
+            <a class="button button-md button-twitter button-icon button-icon-left button-leaf" href="https://twitter.com/dotcms"><span class="icon mdi mdi-twitter"></span>Twitter</a>
+            <a class="button button-md button-linkedin button-icon button-icon-left button-leaf" href="https://www.linkedin.com/company/2307658/"><span class="icon mdi mdi-linkedin"></span>LinkedIn</a>
+        </div>
+    </div>
+
+    <!-- COMMENTS -->
+    <div id="comments" class="pt-5 mt-5">
+        #dotParse("/application/vtl/blog/comments/comments.vtl")
+    </div>
+
+    
+
+#else
+    <h2>No blog</h2>
+#end

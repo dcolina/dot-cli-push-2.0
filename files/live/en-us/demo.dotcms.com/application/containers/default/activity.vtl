@@ -1,0 +1,17 @@
+<!-- Container Code: /application/containers/activity.vtl -->
+
+<a class="box-info" href="/activities/$urlTitle">
+	<img class="box-info-img" src="/dA/${ContentIdentifier}/image/270w/50q/$!{imageBinaryFileTitle}" alt="$title" width="270" height="270">
+	<div class="box-info-body">
+		<h4 class="box-info-title">$title</h4>
+		<p
+		    class="box-info-text"
+            #if ($EDIT_MODE)
+                data-language="${CONTENT_LANGUAGE}"
+                data-mode="minimal"
+                data-inode="${ContentInode}"
+                data-field-name="description"      
+            #end
+	    >$UtilMethods.prettyShortenString("$description", 120)</p>
+	</div>
+</a>

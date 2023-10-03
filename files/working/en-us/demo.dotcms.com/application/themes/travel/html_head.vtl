@@ -1,0 +1,37 @@
+<head>
+#dotParse("${dotTheme.path}dot_seo.vtl")
+    <title>$!dotSeo.get('pageTitle')</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="dotCMS" content="$!{host.identifier}" />
+    <meta name="description" content="$!dotSeo.get('metaDescription')" />
+    <link rel="canonical" href="$!dotSeo.get('canonicalUrl')" />
+    <link rel="icon" href="${dotTheme.path}img/favicon.png" />
+    <link rel="alternate" hreflang="x-default" href="$dotSeo.get('canonicalUrl')">
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="$!dotSeo.get('ogTitle')" />
+    <meta property="og:description" content="$!dotSeo.get('ogDescription')" />
+    <meta property="og:url" content="$!dotSeo.get('canonicalUrl')" />
+    <meta property="og:image" content="$!dotSeo.get('ogImage')" />
+    <meta property="og:image:alt" content="$!dotSeo.get('ogTitle')" />
+    <meta property="og:image:width" content="1140" />
+    <meta property="og:site_name" content="$!{host.map.aliases}" />
+    <meta property="og:type" content="$!dotSeo.get('ogType')" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@dotcms" />
+    <meta name="twitter:image" content="$!dotSeo.get('ogImage')" />
+
+    <!-- Robots -->
+    <meta name="robots" content="$!dotSeo.get('robots')" />
+    <meta name="robots" content="max-snippet: $!dotSeo.get('snippet')" />
+
+    <!-- CSS -->
+    <link rel="preload" as="style" href="//fonts.googleapis.com/css?family=Oswald:500,600,700%7CRoboto:300,300i,700%7CCondiment%7CDella+Respira">
+    <link rel="preload" as="style" href="${dotTheme.path}css/styles.dotsass">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald:500,600,700%7CRoboto:300,300i,700%7CCondiment%7CDella+Respira">
+    <link rel="stylesheet" href="${dotTheme.path}css/styles.dotsass">
+
+</head>

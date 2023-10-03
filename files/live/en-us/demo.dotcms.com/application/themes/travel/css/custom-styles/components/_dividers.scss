@@ -1,0 +1,60 @@
+/*
+*
+* Dividers
+*/
+
+hr {
+  margin-top: 0;
+  margin-bottom: 0;
+  border-top: $hr-border-width solid $hr-border-color;
+}
+
+.divider {
+  font-size: 0;
+  line-height: 0;
+  
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 60px;
+    height: 2px;
+    background-color: $primary;
+  }
+}
+
+//
+// Horizontal Rule with Logo
+//
+
+.hr-logo {
+  display: block;
+  width: 65px;
+  height: 65px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='379' height='249' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230F3A59'%3E%3Cpath d='M-1 249h380v-21H-1zM188.35 0l-54.554 54.562-18.087-18.092-.006.01-12.809-12.802L.101 126.466 0 126.44v45.84l21.372-21.169v-15.69l81.533-81.534 15.785 15.79L.77 187.63H.58v.191l-.006.011.005.01V209h119.233v-2.216l.505 1.025 68.059-68.061 68.442 68.434.01-.016-.02.053h121.586v-7.313h.425v-42.057l.181.176-.117-30.332-92.221-92.223-.059.059-11.831-11.831-30.827 30.831-41.596-41.588-.026.026L188.349 0zm.026 30.193l40.453 40.446-32.273 32.272 15.116 15.11 63.153-63.161 82.622 82.618v31.167L267.65 78.85l-15.106 15.115 92.897 92.887h-79.737l-62.212-62.215.138-.133-15.11-15.11-.144.138-31.093-31.102-15.116 15.11 31.104 31.097-62.968 62.97.005.021H30.934L188.376 30.193z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  margin: 40px auto;
+  overflow: visible;
+  position: relative;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 54%;
+    left: 90px;
+    width: 15vw;
+    height: 2px;
+    background: #0F3A59;
+  }
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 54%;
+    right: 90px;
+    width: 15vw;
+    height: 2px;
+    background: #0F3A59;
+  }
+}

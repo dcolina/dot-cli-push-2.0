@@ -1,0 +1,118 @@
+/**
+*
+* RD Navbar Transparent
+* =====================================================
+*/
+.rd-navbar-wrap-transparent {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1000;
+	
+	.rd-navbar-static.rd-navbar--is-stuck, .rd-navbar-static.rd-navbar--is-clone {
+		background-color: $gray-800;
+	}
+}
+
+.rd-navbar-transparent {
+	background: transparent;
+	
+	
+	
+	
+	// Static
+	&.rd-navbar-static {
+		
+		.rd-navbar-main {
+			max-width: none;
+		}
+		
+		.rd-nav-item {
+			
+			&.focus,
+			&.opened {
+				
+				.rd-nav-link {
+					color: $primary-light;
+				}
+				
+				> .rd-navbar-submenu-toggle {
+					color: $primary-light;
+				}
+			}
+			
+			&.active {
+				> .rd-navbar-submenu-toggle {
+					color: $primary-light;
+				}
+				
+				.rd-nav-link {
+					color: $primary-light;
+				}
+			}
+			
+			> .rd-navbar-submenu-toggle {
+				color: $white;
+				
+				&:hover {
+					color: $primary-light;
+				}
+			}
+		}
+		
+		.rd-nav-link {
+			color: $white;
+			
+			&:hover {
+				color: $primary-light;
+			}
+		}
+		
+		.rd-navbar-search-toggle {
+			color: $white;
+			
+			&:hover {
+				color: $primary-light;
+			}
+			
+			&.active {
+				color: $gray-800;
+				
+				&:hover {
+					color: $primary;
+				}
+			}
+		}
+		
+		.rd-search {
+			.form-input {
+				color: $gray-800;
+				background: $white;
+				border-color: $white;
+				padding-left: 20px;
+			}
+			
+			.form-label {
+				color: $gray-800;
+				left: 20px;
+				top: 26px;
+			}
+		}
+		
+		// Extra large ≥1600px
+		@include media-breakpoint-up(xxl) {
+			.rd-navbar-main-outer {
+				padding-left: 75px;
+				padding-right: 75px;
+			}
+		}
+	}
+	
+	&.rd-navbar-fixed {
+		.rd-navbar-fixed-element-2 {
+			right: 10px;
+		}
+	}
+}

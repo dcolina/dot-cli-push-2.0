@@ -1,0 +1,235 @@
+/*
+*
+* Lists
+*/
+
+// Vertical list
+.list {
+  > li + li {
+    margin-top: 10px;
+  }
+}
+
+.list-big {
+  font-size: 16px;
+  line-height: $line-height-lg;
+
+  // Medium ≥576px
+  @include media-breakpoint-up(sm) {
+    font-size: $font-size-lg;
+  }
+}
+
+.list-gray-800 {
+  color: $gray-800;
+}
+ 
+.list-xs > li + li { margin-top: 5px; }
+.list-sm > li + li { margin-top: 10px; }
+.list-md > li + li { margin-top: 18px; }
+.list-lg > li + li { margin-top: 25px; }
+.list-xl > li + li { margin-top: 40px; }
+
+@include media-breakpoint-up(lg) {
+  .list-xl > li + li { margin-top: 64px; }
+}
+
+//
+// List inline
+//
+.list-inline {
+  > li { display: inline-block; }
+}
+
+html {
+  .list-inline-md {
+    @include spacing(20px, 8px);
+
+    @include media-breakpoint-up(lg) {
+
+      @include spacingX(30px);
+    }
+  }
+
+  .list-inline-xxl {
+    @include spacing(40px, 10px);
+
+    @include media-breakpoint-up(xl) {
+
+      @include spacingX(74px);
+    }
+  }
+}
+
+//
+// List terms
+//
+
+.list-terms {
+  dt + dd { margin-top: 5px; }
+  dd + dt { margin-top: 25px; }
+}
+
+* + .list-terms { margin-top: 25px; }
+
+//
+// Index list
+//
+.index-list {
+  counter-reset: li;
+
+  > li {
+    .list-index-counter {
+      &:before {
+        content: counter(li, decimal-leading-zero);
+        counter-increment: li;
+      }
+    }
+  }
+}
+
+//
+// Marked list
+//
+.list-marked {
+  padding-left: 25px;
+  text-align: left;
+
+  > li {
+    text-indent: -25px;
+    padding-left: 25px;
+
+    &::before {
+      position: relative;
+      display: inline-block;
+      left: 25px;
+      top: -1px;
+      min-width: 25px;
+      content: "";
+      font-family: "Material Design Icons";
+      color: $gray-400;
+    }
+  } 
+
+  > li + li { margin-top: 10px; }
+}
+
+* + .list-marked { margin-top: 15px; }
+p + .list-marked { margin-top: 10px; }
+h2 + .list-marked { margin-top: 30px; }
+.list-marked + p { margin-top: 10px; }
+
+//
+// Ordered List
+//
+.list-ordered {
+  padding-left: 25px;
+  text-align: left;
+  counter-reset: li;
+
+  > li {
+    position: relative;
+    padding-left: 25px;
+
+    &:before {
+      content: counter(li, decimal) '.';
+      counter-increment: li;
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 25px;
+      color: $gray-400;
+    }
+  }
+
+  > li + li { margin-top: 10px; }
+}
+
+* + .list-ordered { margin-top: 15px; }
+
+
+//
+// List Contacts
+//
+.list-contacts {
+  .icon {
+    vertical-align: middle;
+    font-size: 22px;
+    color: $gray-400;
+  }
+
+  li + li { margin-top: 13px; }
+}
+
+.link-address,
+.link-tel {
+  @include link($gray-800, $primary)
+}
+
+.link-email {
+  @include link($primary, $gray-800);
+}
+
+* + .list-contacts { margin-top: 30px; }
+
+//
+// List Socials
+//
+.list-social {
+  @include spacing(12px, 10px);
+
+  > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+
+  .icon {
+    font-size: 24px;
+    @include link($gray-400, $gray-800)
+  }
+}
+
+* + .list-social { margin-top: 24px; }
+
+
+.tagcloud  {
+	margin: 15px 0 0 0;
+	padding: 0;
+  list-style: none;
+  li {
+    display: inline-block;
+    margin: 0 .3em .3em 0;
+    position: relative;
+    display: inline-block;
+    max-width: 100px;
+    height: 32px;
+    line-height: 28px;
+    padding: 0 2.5em 0 1em;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 14px;
+
+    span {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      z-index: 2;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      background-color: $primary;
+      border-radius: 100%;
+      color: #fff;
+      font-size: 10px;
+      text-align: center;
+      -webkit-transition: .2s;
+      transition: .2s;
+    }
+  }
+}

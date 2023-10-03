@@ -1,0 +1,55 @@
+.banner {
+    height: 43vh !important;
+    position: relative;
+    min-height: 300px;
+    @media (min-width: $screen-lg){
+        min-height: 450px;
+    }
+    .container {
+        height: 100%;
+        .row {
+            align-items: center;
+            height: 100%;
+        }
+    }
+}
+
+.banner-tall .banner {
+    height: 55vh !important;
+}
+
+.bg-white-60 {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.bg-black-60 {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.banner-3 {
+    background-color: $gray-700;
+	position: relative;
+	width: 100vw;
+	margin-left: -50vw;
+	left: 50%;
+    background-position: right center;
+    background-size: 0 0;
+    background-repeat: no-repeat;
+    .container {
+		position: relative;
+    }
+    @media (min-width: $screen-lg){
+        background-size: 50% auto;
+    }
+}
+
+// Banner Text
+
+.banner-title {
+    color: $blue-darker;
+    font-size: $h1-size;
+    line-height: 1.167em;
+    font-family: 'Open Sans',Helvetica,sans-serif;
+    font-weight: 500;
+    margin: 0 auto 17px;
+}

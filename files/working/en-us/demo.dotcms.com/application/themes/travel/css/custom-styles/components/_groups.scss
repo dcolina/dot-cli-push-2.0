@@ -1,0 +1,112 @@
+/*
+* Element groups
+*/
+
+html {
+  .group {
+    @include group(15px, 20px);
+    margin-top: 20px;
+  } 
+  
+  .group-sm {
+    @include group(10px, 10px);
+    margin-top: 10px;
+  }
+
+  .group-md {
+    @include group(20px, 20px);
+    margin-top: 40px;
+    @include media-breakpoint-up(md) {
+      margin-top: 20px;
+    }
+  }
+
+  .group-lg {
+    @include group(30px, 20px);
+    margin-top: 10px;
+    @include media-breakpoint-up(lg) {
+      margin-top: 40px;
+    }
+    @include media-breakpoint-up(md) {
+      margin-top: 20px;
+    }
+  }
+
+  .group-xl {
+    @include group(40px, 20px);
+    margin-top: 20px;
+    @include media-breakpoint-up(lg) {
+      margin-top: 60px;
+    }
+    @include media-breakpoint-up(md) {
+      margin-top: 30px;
+    }
+  }
+  
+  .group-sm-justify {
+    .button {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    
+    @include media-breakpoint-up(md) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      > * {
+        flex-grow: 1;
+        flex-shrink: 0;
+      }
+      
+      .button {
+        min-width: 130px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+  }
+  
+  // Mods
+  .group-middle { 
+    display: inline-table;
+    vertical-align: middle;
+    
+    > * {
+      vertical-align: middle;
+    }
+  }
+
+  .group-between {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    .rd-form {
+
+      .button {
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+
+    // Large ≥992px
+    @include media-breakpoint-up(lg) {
+      justify-content: space-between;
+
+      .rd-form {
+        min-width: 470px;
+      }
+    }
+  }
+}
+
+
+.table-custom-responsive + .group-xl { margin-top: 50px; }
+
+// Extra large ≥1200px
+@include media-breakpoint-up(xl) {
+  h2 + .group-lg { margin-top: 60px; }
+  .table-custom-responsive + .group-xl { margin-top: 80px; }
+}

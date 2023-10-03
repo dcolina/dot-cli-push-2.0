@@ -1,0 +1,83 @@
+#if($productLineCategoriesKeys.size() > 0)<h2 id="products-title">$productLineCategoriesKeys[0] Products</h2> #else <h2>Store Products</h2> #end
+
+#set($hasTagParam = $UtilMethods.isSet($request.getParameter("tags")))
+#set($tag = $request.getParameter("tags"))
+
+#if($showTagsFilter == "true")
+    #set($query = '{
+        "query":{
+           "query_string":{
+              "query": "+contentType:product +categories:$productLineCategoriesKeys[0]"
+           }
+      },
+        "aggs":{
+           "tag":{
+              "terms":{
+                 "field":"tags",
+                 "size":"100"
+             }
+           }
+        },
+        "size":"0"
+    }')
+
+    #set($aggsQuery = $render.eval($query))
+    #set($rawResults = $estool.search($aggsQuery))
+
+    #set($results = $json.generate($rawResults.response))
+
+    <div class="products-tags">
+        <ul>
+        #foreach($item in $results.aggregations.asMap.asMap.tag.buckets)
+          #if($productLineCategoriesKeys.size() > 0)
+             <li><a class="#if($tag == $item.key) active  #end" href="/store/$productLineCategoriesKeys[0]?tags=$item.key"># $item.key ($item["docCount"])</a></li>
+          #else
+             <li><a href="/store?tags=$item.key"># $item.key ($item["docCount"])</a></li>
+          #end
+        #end
+        </ul>
+    </div>
+#end   
+   
+   
+<div class="row mb-5">
+
+    #set($tagQuery = "")
+    #foreach ($val in $request.getParameter("tags").split("[,]")) 
+      #set($tagQuery = "+(Product.tags:$val)" +$tagQuery) 
+    #end 
+    
+	#set($results = $dotcontent.pull("+contentType:Product +(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797 conhost:SYSTEM_HOST) #if($productLineCategoriesKeys.size() > 0) +(categories:$productLineCategoriesKeys[0]) #end #if($hasTagParam) $tagQuery #end",${quantity},"modDate desc"))
+	#set ($s = $show.split(","))
+	#foreach($product in $results)
+		<div class="col-6 col-md-4 col-lg-3">
+			<div class="box-product box-product-modern">
+				<div class="box-product-body">
+					<div class="box-product-button">
+						<!--<a class="button button-sm button-primary" href="/store/cart">Add to cart</a>-->
+						<a class="button button-sm button-gray-400" href="/store/products/$product.urlTitle">View details</a>
+					</div>
+				#if($s.contains("image"))
+					<div class="img-wrapper">
+						<img class="box-product-img" src="$product.image.resizeUri" alt="$product.title">
+					</div>
+				#end
+				</div>
+				#if($s.contains("title"))
+				    <p class="box-product-name"><a href="/store/products/$product.urlTitle">$product.title</a></p>
+				#end
+				
+				#if($s.contains("price"))
+            <div class="box-product-prices">
+                #if($UtilMethods.isSet($product.salePrice))
+                    <span class="current-price sale-price">$!{product.salePrice}</span>
+                    <span class="original-price">$!{product.retailPrice}</span>
+                #else
+                    <span class="current-price">$!{product.retailPrice}</span>
+                #end
+            </div>
+				#end
+			</div>
+		</div>
+	#end
+</div>

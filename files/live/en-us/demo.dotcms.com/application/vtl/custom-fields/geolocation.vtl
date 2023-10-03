@@ -1,0 +1,163 @@
+<style>
+  .map-canvas{
+    height: 500px;
+    width: 500px;
+  }
+
+  .search-box {
+    font-size: 18px;
+    width: 430px;
+    height: 40px;
+    margin: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+
+  .info p {
+    margin: 10px 0 0;
+  }
+
+  .map-pick {
+    background: url(/html/images/icons/dotcms-sprite.png) no-repeat -1px -1280px;
+    display: inline-block;
+    height: 18px;
+    margin-top: 4px;
+    overflow: hidden;
+    text-indent: -45px;
+    vertical-align: top;
+    width: 18px;
+  }
+</style>
+
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=${host.googleMap}&v=3.exp&signed_in=true&libraries=places"></script>
+
+<script>
+  dojo.addOnLoad(function() {
+    var information = document.getElementById('information');
+    var latitude = 52.525595;
+    var longitude = 13.393085;
+    var map = null;
+    var mapButton = dojo.byId('mapOpenButton');
+    var mapCanvas = document.getElementById('map-canvas');
+    var mapInput;
+    var marker = null;
+
+    // Create Google Maps search input
+    var input = document.getElementById('search_input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    google.maps.event.addListener(searchBox, 'places_changed', function() {
+      var places = searchBox.getPlaces()[0];
+      updateInformation(places.geometry.location, places.formatted_address);
+      if (map) {
+        placeMarker(places.geometry.location);
+        mapInput.value = places.formatted_address;
+      }
+    });
+
+    // Getting user position
+    navigator.geolocation.getCurrentPosition(updateStartPosition);
+
+    // If we get user position we set default lat ang long
+    function updateStartPosition(location) {
+      if (location.coords) {
+          latitude = location.coords.latitude;
+          longitude = location.coords.longitude;
+      }
+    }
+
+    mapButton.addEventListener('click', function() {
+      if (!map) {
+        loadMap();
+      } else {
+        dijit.byId('map-dialog').show();
+      }
+    });
+
+    function openMap() {
+      if (!map) {
+        loadMap();
+      } else {
+        dijit.byId('map-dialog').show();
+      }
+    }
+
+    function loadMap() {
+      // Coordinates to center the map
+      var myLatlng = new google.maps.LatLng(latitude, longitude);
+
+      // Other options for the map, pretty much selfexplanatory
+      var mapOptions = {
+          zoom: 14,
+          center: myLatlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      // Create search box for the map
+      mapInput = document.createElement('input');
+      mapInput.className = 'search-box';
+      mapInput.placeholder = 'Search for a places';
+      var mapSearchBox = new google.maps.places.SearchBox(mapInput);
+
+      google.maps.event.addListener(mapSearchBox, 'places_changed', function() {
+        var places = mapSearchBox.getPlaces()[0];
+        updateInformation(places.geometry.location, places.formatted_address);
+        placeMarker(places.geometry.location);
+      });
+
+      // Attach a map to the DOM Element, with the defined settings
+      map = new google.maps.Map(mapCanvas, mapOptions);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(mapInput);
+
+      marker = new google.maps.Marker({
+        map: map
+      });
+
+      google.maps.event.addListener(map, 'click', function(e) {
+        placeMarker(e.latLng);
+        updateInformation(e.latLng);
+      });
+
+      dijit.byId('map-dialog').show();
+
+      if (dojo.byId('latlong').value) {
+        var coords = dojo.byId('latlong').value.split(',');
+        var location = new google.maps.LatLng(coords[0], coords[1]);
+        placeMarker(location);
+      }
+    }
+
+    function updateInformation(location, address) {
+      var content = '<p>';
+      if (address) {
+        content += '<b>' + address + '</b><br/>';
+        dijit.byId('search_input').set('value', address);
+      } else {
+        dijit.byId('search_input').set('value', '');
+      }
+      content += '<b>Latitude:</b>  ' + location.lat() + '<b style=\"display:inline-block;margin-left: 35px;\">Longitude:</b> ' + location.lng();
+      content += '</p>';
+      information.innerHTML = content;
+
+      // Save the data in the field
+      dojo.byId('latlong').value = location.lat() + ',' + location.lng();
+    }
+
+    function placeMarker(location) {
+      marker.setPosition(location);
+      map.setCenter(location);
+    }
+
+    if (dojo.byId('latlong').value) {
+      var coords = dojo.byId('latlong').value.split(',');
+      var location = new google.maps.LatLng(coords[0], coords[1]);
+      updateInformation(location);
+    }
+  });
+</script>
+
+<input dojoType="dijit.form.TextBox" type="text" id="search_input" style="width: 400px;"/>
+<button id="mapOpenButton" dojoType="dijit.form.Button" type="button">Map View</button>
+<div id="information" class="info"></div>
+<div id="map-dialog" data-dojo-type="dijit.Dialog" title="Search or click to select a place">
+  <div id="map-canvas" class="map-canvas"></div>
+</div>

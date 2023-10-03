@@ -1,0 +1,29 @@
+// CSS vendors
+// 
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin order($order) {
+  -webkit-order: $order;
+  -ms-flex-order: $order;
+  order: $order
+} 
+
+@mixin columns($count) {
+  -webkit-columns: $count;
+  -moz-columns: $count;
+  columns: $count;
+}
+
+@mixin break-inside($break-inside) {
+  -webkit-column-break-inside: $break-inside;
+  page-break-inside: $break-inside;
+  break-inside: $break-inside;
+}

@@ -1,0 +1,21 @@
+#set($faqList = $dotcontent.pullRelated("FaqWidget.faq","$!{ContentIdentifier}",false,0))
+<h2>$!{widgetTitle}</h2>
+
+<div class="card-group-custom card-group-corporate" id="accordion1" role="tablist" aria-multiselectable="false">
+    #foreach($faq in $faqList)
+        <article class="card card-custom card-corporate">
+            <div class="card-header" id="accordion-heading$!{faq.identifier}" role="tab">
+                #editContentlet($faq.inode)
+                <div class="card-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion$!{faq.identifier}" aria-controls="accordion$!{faq.identifier}" aria-expanded="false" class="collapsed">
+                        $!{faq.question}
+                        <div class="card-arrow"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="collapse" id="accordion$!{faq.identifier}" role="tabpanel" aria-labelledby="accordion-heading$!{faq.identifier}">
+                <div class="card-body">$!{faq.answer}</div>
+            </div>
+        </article>
+    #end
+</div>

@@ -4,8 +4,7 @@
   CLI_RELEASE_DOWNLOAD_BASE_URL="https://repo.dotcms.com/artifactory/libs-snapshot-local/com/dotcms/dotcms-cli/"
   RUN_JAVA_VERSION=1.3.8
   RUN_DOT_CLI_VERSION='1.0.0-SNAPSHOT'
-  ## CLI_RELEASE_DOWNLOAD_URL="${CLI_RELEASE_DOWNLOAD_BASE_URL}${RUN_DOT_CLI_VERSION}/dotcli-${RUN_DOT_CLI_VERSION}.jar"
-  CLI_RELEASE_DOWNLOAD_URL="https://repo.dotcms.com/artifactory/libs-snapshot-local/com/dotcms/dotcms-cli/1.0.0-SNAPSHOT/dotcms-cli-1.0.0-20231002.205953-1.jar"
+  CLI_RELEASE_DOWNLOAD_URL="${CLI_RELEASE_DOWNLOAD_BASE_URL}${RUN_DOT_CLI_VERSION}/dotcli-${RUN_DOT_CLI_VERSION}.jar"
   DOT_CLI_JAR="dot-cli.jar"
   DOT_CLI_HOME="/tmp/dot-cli/"
   DOT_SERVICE_YML="dot-service.yml"
@@ -38,6 +37,11 @@ _get_CLI(){
     echo "The file is too small to be the CLI, please check the version and try again"
     exit 1
   fi
+}
+
+_install_CLI(){
+  workspace_path=$1
+  copy  "$workspace_path"/dotcms-cli-1.0.0-SNAPSHOT-runner.jar ${DOT_CLI_HOME}${DOT_CLI_JAR}
 }
 
 _get_run_java_script(){
@@ -98,7 +102,8 @@ run_cli_push(){
     dotApiURL=$2
     token=$3
     _make_home
-    _get_CLI
+    #_get_CLI
+    _install_CLI "$workspace_path"
     _get_run_java_script
     _setup_CLI "$dotApiURL"
     return_code=$(_run_cli_push "$workspace_path" "$token")

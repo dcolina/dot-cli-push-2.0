@@ -99,7 +99,7 @@ _run_cli_push(){
       echo $exit_code
 }
 
-install_dot_cli(){
+install_cli(){
     cli_release_download_url=$1
     force_download=$2
     dotApiURL=$3

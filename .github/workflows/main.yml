@@ -34,6 +34,15 @@ jobs:
         run: |
           echo "$GITHUB_ENV"
 
+      - name: Read README.md
+        id: envars
+        uses: jaywcjlove/github-action-read-file@main
+        with:
+          path: .env
+
+      - name: Echo .env file
+        run: echo "${{ steps.envars.outputs.content }}"          
+
       - name: Get changes
         id: changed-files
         run: |

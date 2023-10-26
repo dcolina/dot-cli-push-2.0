@@ -122,7 +122,7 @@ jobs:
                       COMMAND_PUSH_OPTS=f"{COMMAND_PUSH_OPTS} --{key}={value}"
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              print(f'COMMAND_PUSH_OPTS={COMMAND_PUSH_OPTS}', file=f)) 
+              print(f'COMMAND_PUSH_OPTS={COMMAND_PUSH_OPTS}', file=f)
 
           # print(os.environ["COMMAND_PUSH_OPTS"])
           # print(COMMAND_PUSH_OPTS)

@@ -117,3 +117,7 @@ run_cli_push(){
     return_code=$(_run_cli_push "$workspace_path" "$token")
     echo "$return_code"
 }
+
+print_envars(){
+  env
+}

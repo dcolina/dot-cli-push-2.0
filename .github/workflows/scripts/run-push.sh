@@ -118,6 +118,6 @@ run_cli_push(){
     echo "$return_code"
 }
 
-print_envars(){
+print_env(){
   env
 }

@@ -125,7 +125,7 @@ jobs:
             with open(os.environ["GITHUB_OUTPUT"], "a") as f :
               print("{0}={1}".format("COMMAND_PUSH_OPTS", COMMAND_PUSH_OPTS), file=f)            
 
-          print(COMMAND_OPTIONS)
+          print(COMMAND_PUSH_OPTS)
         shell: python  
 
       - name: Run dotCMS CLI

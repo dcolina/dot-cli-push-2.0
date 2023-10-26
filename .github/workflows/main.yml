@@ -121,11 +121,10 @@ jobs:
                   elif value.lower() != "false":
                       COMMAND_PUSH_OPTS=f"{COMMAND_PUSH_OPTS} --{key}={value}"
 
-          if "GITHUB_ENV" in os.environ :
-            with open(os.environ["GITHUB_ENV"], "a") as f :
-              print("{0}={1}".format("COMMAND_PUSH_OPTS", COMMAND_PUSH_OPTS), file=f)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              print(f'COMMAND_PUSH_OPTS={COMMAND_PUSH_OPTS}', file=f)) 
 
-          print(os.environ["COMMAND_PUSH_OPTS"])
+          # print(os.environ["COMMAND_PUSH_OPTS"])
           # print(COMMAND_PUSH_OPTS)
         shell: python  
 

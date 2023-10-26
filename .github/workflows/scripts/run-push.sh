@@ -86,6 +86,7 @@ print_log(){
 _run_cli_push(){
       workspace_path=$1
       token=$2
+      push_opts=$3
 
       #These environment vars are expected by the start-up script
       export JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
@@ -96,7 +97,7 @@ _run_cli_push(){
       # Log file
       export QUARKUS_LOG_FILE_PATH="$DOT_CLI_HOME"dotcms-cli.log
       bash /tmp/dot-cli/run-java.sh "push" "--help"
-      # bash /tmp/dot-cli/run-java.sh "push" "$workspace_path" "--removeAssets" "--removeFolders" "--token" "$token" "--errors"
+      bash /tmp/dot-cli/run-java.sh "push" "$workspace_path" "--token" "$token" "--errors" "$push_opts" 
       export exit_code=$?
       echo $exit_code
 }
@@ -117,20 +118,4 @@ run_cli_push(){
     token=$2
     return_code=$(_run_cli_push "$workspace_path" "$token")
     echo "$return_code"
-}
-
-print_env(){
-  _command_options
-}
-
-# _command_options(){
-
-#   OPTIONS=`env | grep -i "DOT_CLI"`
-
-#   echo "$OPTIONS"
-# }
-
-_push_options(){
-  PUSH_OPTIONS=("DRY_RUN" "FAIL_FAST" "FORCE_SITE_EXECUTION" "REMOVE_ASSETS" "REMOVE_CONTENT_TYPES" "RETRY_ATTEMPS" "REMOVE_FOLDERS" "REMOVE_LANGUAGES" "REMOVE_SITES")  
-  return ${PUSH_OPTIONS[@]}
 }

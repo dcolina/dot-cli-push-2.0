@@ -120,5 +120,17 @@ run_cli_push(){
 }
 
 print_env(){
-  env | grep -i "DOT_CLI"
+  _command_options
+}
+
+# _command_options(){
+
+#   OPTIONS=`env | grep -i "DOT_CLI"`
+
+#   echo "$OPTIONS"
+# }
+
+_push_options(){
+  PUSH_OPTIONS=("DRY_RUN" "FAIL_FAST" "FORCE_SITE_EXECUTION" "REMOVE_ASSETS" "REMOVE_CONTENT_TYPES" "RETRY_ATTEMPS" "REMOVE_FOLDERS" "REMOVE_LANGUAGES" "REMOVE_SITES")  
+  return ${PUSH_OPTIONS[@]}
 }

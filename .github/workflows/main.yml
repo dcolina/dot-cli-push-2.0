@@ -106,15 +106,15 @@ jobs:
           COMMAND_PUSH_OPTS = "";
 
           for key, value in PUSH_OPTIONS.items():
-            if value != None:
-              if value.lower() == "true":
-                COMMAND_PUSH_OPTS=f"{COMMAND_PUSH_OPTS} --{key}"
-              elif value.lower() != "false":
-                COMMAND_PUSH_OPTS=f"{COMMAND_PUSH_OPTS} --{key}={value}"
-
+              if value != None:
+                  if value.lower() == "true":
+                      COMMAND_PUSH_OPTS=f"{COMMAND_PUSH_OPTS} --{key}"
+                  elif value.lower() != "false":
+                      COMMAND_PUSH_OPTS=f"{COMMAND_PUSH_OPTS} --{key}={value}"
+          
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-            print(f 'COMMAND_PUSH_OPTS={COMMAND_PUSH_OPTS}', file=f)
-
+              print(f'command_opts={COMMAND_PUSH_OPTS}', file=f)
+          
           print(COMMAND_PUSH_OPTS)
         shell: python
 
@@ -124,7 +124,7 @@ jobs:
             chmod +x ./.github/workflows/scripts/run-push.sh
             source ./.github/workflows/scripts/run-push.sh
             install_cli "${{env.DOT_CLI_JAR_DOWNLOAD_URL}}" "${{env.DOT_FORCE_DOWNLOAD}}" "${{env.DOT_API_URL}}"
-            run_cli_push "${{github.workspace}}${{env.DOT_REPO_BASE_PATH}}" "${{ steps.options.outputs.COMMAND_PUSH_OPTS }}" "${{ secrets.DOT_TOKEN }}"
+            run_cli_push "${{github.workspace}}${{env.DOT_REPO_BASE_PATH}}" "${{ steps.options.outputs.command_opts }}" "${{ secrets.DOT_TOKEN }}"
             echo "exit-code=$exit_code" >> "$GITHUB_OUTPUT"
             print_log
             if [ $exit_code -ne 0 ]; then

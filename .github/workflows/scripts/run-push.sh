@@ -97,7 +97,9 @@ _run_cli_push(){
       # Log file
       export QUARKUS_LOG_FILE_PATH="$DOT_CLI_HOME"dotcms-cli.log
       # bash /tmp/dot-cli/run-java.sh "push" "--help"
-      bash /tmp/dot-cli/run-java.sh "push" "$workspace_path" "--token" "$token" "--errors" "$push_opts" 
+      echo "TESTING PUSH WITH: {$push_opts}"
+      bash /tmp/dot-cli/run-java.sh "push" "--token=$token"
+      # bash /tmp/dot-cli/run-java.sh "push" "$workspace_path" "--token=$token" "--errors" "$push_opts" 
       export exit_code=$?
       echo $exit_code
 }

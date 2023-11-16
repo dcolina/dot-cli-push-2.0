@@ -102,6 +102,7 @@ jobs:
           PUSH_OPTIONS["removeFolders"] = os.getenv("DOT_CLI_REMOVE_FOLDERS")
           PUSH_OPTIONS["removeLanguages"] = os.getenv("DOT_CLI_REMOVE_LANGUAGES")
           PUSH_OPTIONS["removeSites"] = os.getenv("DOT_CLI_REMOVE_SITES")
+          PUSH_OPTIONS["errors"] = os.getenv("DOT_CLI_ERRORS")
 
           COMMAND_PUSH_OPTS = "";
 
@@ -110,7 +111,7 @@ jobs:
                   if value.lower() == "true":
                       COMMAND_PUSH_OPTS=f"{COMMAND_PUSH_OPTS} --{key}"
                   elif value.lower() != "false":
-                      COMMAND_PUSH_OPTS=f"{COMMAND_PUSH_OPTS} --{key}={value}"
+                      COMMAND_PUSH_OPTS=f"{COMMAND_PUSH_OPTS} --{key} {value}"
           
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
               print(f'command_opts={COMMAND_PUSH_OPTS}', file=f)

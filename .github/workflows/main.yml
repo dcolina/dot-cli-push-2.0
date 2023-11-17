@@ -88,9 +88,6 @@ jobs:
       - name: Run dotCMS CLI
         id: dot-push
         run: |
-            echo "Running dotCMS CLI ::: "
-            echo "${{ env.DOT_CLI_OPTS }}"
-
             chmod +x ./.github/workflows/scripts/run-push.sh
             source ./.github/workflows/scripts/run-push.sh
             install_cli "${{env.DOT_CLI_JAR_DOWNLOAD_URL}}" "${{env.DOT_FORCE_DOWNLOAD}}" "${{env.DOT_API_URL}}"

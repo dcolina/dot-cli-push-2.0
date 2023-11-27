@@ -91,6 +91,9 @@ jobs:
             chmod +x ./.github/workflows/scripts/run-push.sh
             source ./.github/workflows/scripts/run-push.sh
             install_cli "${{env.DOT_CLI_JAR_DOWNLOAD_URL}}" "${{env.DOT_FORCE_DOWNLOAD}}" "${{env.DOT_API_URL}}"
+
+            echo "DOT_CLI_OPTS: ${{env.DOT_CLI_OPTS}}"
+
             run_cli_push "${{github.workspace}}${{env.DOT_REPO_BASE_PATH}}" "${{ secrets.DOT_TOKEN }}" "${{ env.DOT_CLI_OPTS }}"
             echo "exit-code=$exit_code" >> "$GITHUB_OUTPUT"
             print_log
